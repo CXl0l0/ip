@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,10 +22,14 @@ public class Sigma {
     ArrayList<Task> list;
     private void show_list() throws SigmaException {
         line();
-        System.out.println(reply_prefix + "Stop slacking and lock in.");
-        for (int i = 0; i < list.size(); i++) {
-            Task todo = list.get(i);
-            System.out.println((i + 1) + ". "+ todo.toString());
+        if (list.size() == 0) {
+            System.out.println(reply_prefix + "The list is empty right now.");
+        } else {
+            System.out.println(reply_prefix + "Stop slacking and lock in.");
+            for (int i = 0; i < list.size(); i++) {
+                Task task = list.get(i);
+                System.out.println((i + 1) + ". "+ task.toString());
+            }
         }
         line();
         await_reply();
@@ -171,6 +174,23 @@ public class Sigma {
         }
     }
 
+    private void delete_task(int i) throws SigmaException {
+        try {
+            Task task = list.get(i - 1);
+            list.remove(i - 1);
+            line();
+            System.out.println("I've removed this for you bud.\n" + i + ". " + task.toString());
+            System.out.println("You've got " + list.size() + " task(s) left.");
+            line();
+            await_reply();
+        } catch (IndexOutOfBoundsException e) {
+            line();
+            System.out.println(reply_prefix + "Enter a valid task number. There probably ain't even any tasks to delete you bum.");
+            line();
+            await_reply();
+        }
+    }
+
     //Dialogue functions
     private void greet() {
         line();
@@ -200,6 +220,13 @@ public class Sigma {
                 show_list();
                 break;
             case "mark": {
+                if (tokens.length > 2) { //unknown elements after command
+                    line();
+                    System.out.println(reply_prefix+ "I don't know what you're talking about.");
+                    line();
+                    await_reply();
+                }
+
                 try {
                     int index = Integer.parseInt(tokens[1]);
                     mark_done(index);
@@ -212,6 +239,13 @@ public class Sigma {
                 }
             }
             case "unmark": {
+                if (tokens.length > 2) { //unknown elements after command
+                    line();
+                    System.out.println(reply_prefix+ "I don't know what you're talking about.");
+                    line();
+                    await_reply();
+                }
+
                 try {
                     int index = Integer.parseInt(tokens[1]);
                     mark_undone(index);
@@ -234,6 +268,24 @@ public class Sigma {
             case "event": {
                 add_event(tokens);
                 break;
+            }
+            case "delete": {
+                if (tokens.length > 2) { //unknown elements after command
+                    line();
+                    System.out.println(reply_prefix+ "I don't know what you're talking about.");
+                    line();
+                    await_reply();
+                }
+                try {
+                    int index = Integer.parseInt(tokens[1]);
+                    delete_task(index);
+                    break;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    line();
+                    System.out.println(reply_prefix + "Which one do you want to delete exactly?");
+                    line();
+                    await_reply();
+                }
             }
             default:
             //Invalid/Unknown command
