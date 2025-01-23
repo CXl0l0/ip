@@ -37,7 +37,93 @@ public class Sigma {
         Task task = new Task(todo);
         list.add(task);
         System.out.println(reply_prefix + "Aight, I will remember that for you.");
-        System.out.println("added: " + task.getTaskName());
+        System.out.println("added: " + task.toString());
+        line();
+        await_reply();
+    }
+
+    private void add_todo(String[] tokens) {
+        line();
+
+        String taskName = "";
+        for (int i = 1; i < tokens.length; i++) {
+            taskName += tokens[i] + " ";
+        }
+
+        ToDo todo = new ToDo(taskName);
+        list.add(todo);
+
+        System.out.println(reply_prefix + "Aight, I will remember that for you.");
+        System.out.println("added: " + todo.toString());
+        System.err.println("Now you have " + list.size() + " task(s) in the list!");
+
+        line();
+        await_reply();
+    }
+
+    private void add_deadline(String[] tokens) {
+        line();
+
+        String taskName = "";
+        String date = "";
+        boolean reading_date = false;
+        for (int i = 1; i < tokens.length; i++) {
+            String str = tokens[i];
+            if (reading_date) {
+                date += str + " ";
+            } else if (str.equals("/by")) {
+                reading_date = true;
+                continue;
+            } else {
+                taskName += str + " ";
+            }
+        }
+
+        Deadline deadline = new Deadline(taskName, date);
+        list.add(deadline);
+
+        System.out.println(reply_prefix + "Aight, I will remember that for you.");
+        System.out.println("added: " + deadline.toString());
+        System.err.println("Now you have " + list.size() + " task(s) in the list!");
+        
+        line();
+        await_reply();
+    }
+
+    private void add_event(String[] tokens) {
+        line();
+
+        String taskName = "";
+        String from = "";
+        String to = "";
+        boolean reading_from = false;
+        boolean reading_to = false;
+        for (int i = 1; i < tokens.length; i ++) {
+            String str = tokens[i];
+            if (str.equals("/from")) {
+                reading_from = true;
+                reading_to = false;
+                continue;
+            } else if (str.equals("/to")) {
+                reading_from = false;
+                reading_to = true;
+                continue;
+            } else if (reading_from) {
+                from += str + " ";
+            } else if (reading_to) {
+                to += str + " ";
+            } else {
+                taskName += str + " ";
+            }
+        }
+
+        Event event = new Event(taskName, from, to);
+        list.add(event);
+
+        System.out.println(reply_prefix + "Aight, I will remember that for you.");
+        System.out.println("added: " + event.toString());
+        System.err.println("Now you have " + list.size() + " task(s) in the list!");
+
         line();
         await_reply();
     }
@@ -100,8 +186,23 @@ public class Sigma {
                 mark_undone(index);
                 break;
             }
+            case "todo": {
+                add_todo(tokens);
+                break;
+            }
+            case "deadline": {
+                add_deadline(tokens);
+                break;
+            }
+            case "event": {
+                add_event(tokens);
+                break;
+            }
             default:
-                add_list(reply);
+                line();
+                System.out.println(reply_prefix+ "I don't know what you're talking about, tell me what you want.");
+                line();
+                await_reply();
         }
     }
 
