@@ -26,7 +26,7 @@ public class Sigma {
         System.out.println(reply_prefix + "Stop slacking and lock in.");
         for (int i = 0; i < list.size(); i++) {
             Task todo = list.get(i);
-            System.err.println((i + 1) + ". "+ todo.toString());
+            System.out.println((i + 1) + ". "+ todo.toString());
         }
         line();
         await_reply();
@@ -55,7 +55,7 @@ public class Sigma {
 
         System.out.println(reply_prefix + "Aight, I will remember that for you.");
         System.out.println("added: " + todo.toString());
-        System.err.println("Now you have " + list.size() + " task(s) in the list!");
+        System.out.println("Now you have " + list.size() + " task(s) in the list!");
 
         line();
         await_reply();
@@ -70,12 +70,12 @@ public class Sigma {
         for (int i = 1; i < tokens.length; i++) {
             String str = tokens[i];
             if (reading_date) {
-                date += str + " ";
+                date += " " + str;
             } else if (str.equals("/by")) {
                 reading_date = true;
                 continue;
             } else {
-                taskName += str + " ";
+                taskName += " " + str;
             }
         }
 
@@ -84,7 +84,7 @@ public class Sigma {
 
         System.out.println(reply_prefix + "Aight, I will remember that for you.");
         System.out.println("added: " + deadline.toString());
-        System.err.println("Now you have " + list.size() + " task(s) in the list!");
+        System.out.println("Now you have " + list.size() + " task(s) in the list!");
         
         line();
         await_reply();
@@ -109,11 +109,11 @@ public class Sigma {
                 reading_to = true;
                 continue;
             } else if (reading_from) {
-                from += str + " ";
+                from += " " + str;
             } else if (reading_to) {
-                to += str + " ";
+                to += " " + str;
             } else {
-                taskName += str + " ";
+                taskName += " " + str;
             }
         }
 
@@ -122,7 +122,7 @@ public class Sigma {
 
         System.out.println(reply_prefix + "Aight, I will remember that for you.");
         System.out.println("added: " + event.toString());
-        System.err.println("Now you have " + list.size() + " task(s) in the list!");
+        System.out.println("Now you have " + list.size() + " task(s) in the list!");
 
         line();
         await_reply();
@@ -164,7 +164,7 @@ public class Sigma {
     }
 
     private void await_reply() {
-        System.out.print("You: ");
+        System.out.println("You: ");
         String reply = sc.nextLine();
         //Token reading solution below inspired by https://www.youtube.com/watch?v=lGHlFaF0F44
         String[] tokens = reply.split(" ");
@@ -213,7 +213,7 @@ public class Sigma {
 
     //Misc
     private void line() {
-        System.out.println("----------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
     }
 
     public static void main(String[] args) {

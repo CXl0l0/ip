@@ -1,0 +1,25 @@
+todo borrow book
+list
+deadline return book /by March 3rd
+list
+event attend lecture /from Friday 4pm /to Friday 6pm
+event attend tutorial /to Thursday 4pm /from Thursday 3pm
+list
+mark 2
+mark 3
+list
+unmark 2
+list
+todo read book
+deadline return book /by June 6th
+event project meeting /from Aug 6th 2pm /to 4pm
+todo join sports club
+mark 1
+mark 4
+todo borrow book
+list
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+unmark 4
+list
+bye

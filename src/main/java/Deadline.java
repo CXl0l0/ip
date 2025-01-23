@@ -13,6 +13,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + "[" + (this.isDone() ? "X" : " ") + "] " + this.getTaskName() + "(by: " + by + ")";
+        return "[D]" + "[" + (this.isDone() ? "X" : " ") + "]" + this.getTaskName() + " (By:" + by + ")";
     }
 }
