@@ -3,8 +3,11 @@ public class ToDo extends Task {
         super(taskName, done);
     }
 
-    public ToDo(String taskName) {
+    public ToDo(String taskName) throws NoTaskNameException {
         super(taskName);
+        if (taskName.equals("")) {
+            throw new NoTaskNameException();
+        }
     }
 
     @Override

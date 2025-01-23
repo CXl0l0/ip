@@ -1,8 +1,15 @@
 public class Deadline extends Task {
     String by;
 
-    public Deadline(String taskName, String date) {
+    public Deadline(String taskName, String date) throws SigmaException {
         super(taskName);
+        if (taskName.equals("")) {
+            throw new NoTaskNameException();
+        }
+
+        if (date.equals("")) {
+            throw new NoDeadlineException();
+        }
         this.by = date;
     }
 
