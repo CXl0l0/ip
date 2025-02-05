@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private String by;
 
     public Deadline(String taskName, String date) throws SigmaException {
@@ -17,11 +18,7 @@ public class Deadline extends Task {
         
         //To check if entered date and time is in the correct format
         try {
-            DateTimeFormatter formatter
-            = DateTimeFormatter.ofPattern(
-                "yyyy-MM-dd HHmm");
-
-            LocalDateTime.parse(date.substring(1), formatter);
+            LocalDateTime.parse(date.substring(1), FORMATTER);
         } catch (DateTimeException e) {
             throw new WrongDateTimeFormatException();
         }
@@ -40,11 +37,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter
-            = DateTimeFormatter.ofPattern(
-                "yyyy-MM-dd HHmm");
-
-        LocalDateTime dateTime = LocalDateTime.parse(this.by.substring(1), formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(this.by.substring(1), FORMATTER);
         String dateTimeString = dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
         return "[D]" + "[" + (this.getIsDone() ? "X" : " ") + "]" + this.getTaskName() + " (By: " + dateTimeString + ")";
     }
