@@ -6,7 +6,7 @@ public class Sigma {
     private String name = "Sigma";
     private String reply_prefix = name + ": ";
     
-    private void set_Name(String name) {
+    private void setName(String name) {
         this.name = name;
     }
     
@@ -20,7 +20,7 @@ public class Sigma {
 
     //List
     ArrayList<Task> list;
-    private void show_list() throws SigmaException {
+    private void showList() throws SigmaException {
         line();
         if (list.size() == 0) {
             System.out.println(reply_prefix + "The list is empty right now.");
@@ -32,10 +32,10 @@ public class Sigma {
             }
         }
         line();
-        await_reply();
+        awaitReply();
     }
 
-    private void add_todo(String[] tokens) throws SigmaException {
+    private void addToDo(String[] tokens) throws SigmaException {
         line();
 
         String taskName = "";
@@ -52,27 +52,27 @@ public class Sigma {
             System.out.println("Now you have " + list.size() + " task(s) in the list!");
     
             line();
-            await_reply();
+            awaitReply();
         } catch (NoTaskNameException e) {
             System.out.println(reply_prefix + e.getMessage());
             line();
-            await_reply();
+            awaitReply();
         }
     }
 
-    private void add_deadline(String[] tokens) throws SigmaException {
+    private void addDeadline(String[] tokens) throws SigmaException {
         line();
 
         try {
             String taskName = "";
             String date = "";
-            boolean reading_date = false;
+            boolean isReadingDate = false;
             for (int i = 1; i < tokens.length; i++) {
                 String str = tokens[i];
-                if (reading_date) {
+                if (isReadingDate) {
                     date += " " + str;
                 } else if (str.equals("/by")) {
-                    reading_date = true;
+                    isReadingDate = true;
                     continue;
                 } else {
                     taskName += " " + str;
@@ -87,36 +87,36 @@ public class Sigma {
             System.out.println("Now you have " + list.size() + " task(s) in the list!");
             
             line();
-            await_reply();
+            awaitReply();
         } catch (SigmaException e) {
             System.out.println(reply_prefix + e.getMessage());
             line();
-            await_reply();
+            awaitReply();
         }
     }
 
-    private void add_event(String[] tokens) throws SigmaException {
+    private void addEvent(String[] tokens) throws SigmaException {
         line();
 
         try {
             String taskName = "";
             String from = "";
             String to = "";
-            boolean reading_from = false;
-            boolean reading_to = false;
-            for (int i = 1; i < tokens.length; i ++) {
+            boolean isReadingFrom = false;
+            boolean isReadingTo = false;
+            for (int i = 1; i < tokens.length; i++) {
                 String str = tokens[i];
                 if (str.equals("/from")) {
-                    reading_from = true;
-                    reading_to = false;
+                    isReadingFrom = true;
+                    isReadingTo = false;
                     continue;
                 } else if (str.equals("/to")) {
-                    reading_from = false;
-                    reading_to = true;
+                    isReadingFrom = false;
+                    isReadingTo = true;
                     continue;
-                } else if (reading_from) {
+                } else if (isReadingFrom) {
                     from += " " + str;
-                } else if (reading_to) {
+                } else if (isReadingTo) {
                     to += " " + str;
                 } else {
                     taskName += " " + str;
@@ -131,16 +131,16 @@ public class Sigma {
             System.out.println("Now you have " + list.size() + " task(s) in the list!");
     
             line();
-            await_reply();
+            awaitReply();
         } catch (SigmaException e) {
             System.out.println(reply_prefix + e.getMessage());
             line();
-            await_reply();
+            awaitReply();
         }
 
     }
 
-    private void mark_done(int i) throws SigmaException {
+    private void markDone(int i) throws SigmaException {
         try {
             Task todo = list.get(i - 1);
             todo.setDone(true);
@@ -148,16 +148,16 @@ public class Sigma {
             System.out.println("Good job bro, keep the grind going!");
             System.out.println(todo);
             line();
-            await_reply();
+            awaitReply();
         } catch (IndexOutOfBoundsException e) {
             line();
             System.out.println(reply_prefix + "Enter a valid task number. There probably ain't even any tasks to mark you bum.");
             line();
-            await_reply();
+            awaitReply();
         }
     }
 
-    private void mark_undone(int i) throws SigmaException {
+    private void markUndone(int i) throws SigmaException {
         try {
             Task todo = list.get(i - 1);
             todo.setDone(false);
@@ -165,16 +165,16 @@ public class Sigma {
             System.out.println("Come on bruh, focus!");
             System.out.println(todo);
             line();
-            await_reply();
+            awaitReply();
         } catch (IndexOutOfBoundsException e) {
             line();
             System.out.println(reply_prefix + "Enter a valid task number. There probably ain't even any tasks to unmark you bum.");
             line();
-            await_reply();
+            awaitReply();
         }
     }
 
-    private void delete_task(int i) throws SigmaException {
+    private void deleteTask(int i) throws SigmaException {
         try {
             Task task = list.get(i - 1);
             list.remove(i - 1);
@@ -182,12 +182,12 @@ public class Sigma {
             System.out.println("I've removed this for you bud.\n" + i + ". " + task.toString());
             System.out.println("You've got " + list.size() + " task(s) left.");
             line();
-            await_reply();
+            awaitReply();
         } catch (IndexOutOfBoundsException e) {
             line();
             System.out.println(reply_prefix + "Enter a valid task number. There probably ain't even any tasks to delete you bum.");
             line();
-            await_reply();
+            awaitReply();
         }
     }
 
@@ -206,99 +206,107 @@ public class Sigma {
         System.exit(0);
     }
 
-    private void await_reply() throws SigmaException{
+    private void awaitReply() throws SigmaException {
         System.out.println("You: ");
         String reply = sc.nextLine();
         //Token reading solution below inspired by https://www.youtube.com/watch?v=lGHlFaF0F44
         String[] tokens = reply.split(" ");
         String command = tokens[0];
         switch (command) {
-            case "bye":
-                exit();
-                break;
-            case "list":
-                show_list();
-                break;
-            case "mark": {
-                if (tokens.length > 2) { //unknown elements after command
-                    line();
-                    System.out.println(reply_prefix+ "I don't know what you're talking about.");
-                    line();
-                    await_reply();
-                }
+        case "bye":
+            exit();
+            break;
 
-                try {
-                    int index = Integer.parseInt(tokens[1]);
-                    mark_done(index);
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    line();
-                    System.out.println(reply_prefix + "Which one do you want to mark exactly?");
-                    line();
-                    await_reply();
-                }
-            }
-            case "unmark": {
-                if (tokens.length > 2) { //unknown elements after command
-                    line();
-                    System.out.println(reply_prefix+ "I don't know what you're talking about.");
-                    line();
-                    await_reply();
-                }
+        case "list":
+            showList();
+            break;
 
-                try {
-                    int index = Integer.parseInt(tokens[1]);
-                    mark_undone(index);
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    line();
-                    System.out.println(reply_prefix + "Which one do you want to unmark exactly?");
-                    line();
-                    await_reply();
-                }
-            }
-            case "todo": {
-                add_todo(tokens);
-                break;
-            }
-            case "deadline": {
-                add_deadline(tokens);
-                break;
-            }
-            case "event": {
-                add_event(tokens);
-                break;
-            }
-            case "delete": {
-                if (tokens.length > 2) { //unknown elements after command
-                    line();
-                    System.out.println(reply_prefix+ "I don't know what you're talking about.");
-                    line();
-                    await_reply();
-                }
-                try {
-                    int index = Integer.parseInt(tokens[1]);
-                    delete_task(index);
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    line();
-                    System.out.println(reply_prefix + "Which one do you want to delete exactly?");
-                    line();
-                    await_reply();
-                }
-            }
-            default:
-            //Invalid/Unknown command
+        case "mark": {
+            if (tokens.length > 2) { //unknown elements after command
                 line();
-                System.out.println(reply_prefix+ "I don't know what you're talking about.");
+                System.out.println(reply_prefix + "I don't know what you're talking about.");
                 line();
-                await_reply();
+                awaitReply();
+            }
+
+            try {
+                int index = Integer.parseInt(tokens[1]);
+                markDone(index);
+                break;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                line();
+                System.out.println(reply_prefix + "Which one do you want to mark exactly?");
+                line();
+                awaitReply();
+            }
+        }
+
+        case "unmark": {
+            if (tokens.length > 2) { //unknown elements after command
+                line();
+                System.out.println(reply_prefix + "I don't know what you're talking about.");
+                line();
+                awaitReply();
+            }
+
+            try {
+                int index = Integer.parseInt(tokens[1]);
+                markUndone(index);
+                break;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                line();
+                System.out.println(reply_prefix + "Which one do you want to unmark exactly?");
+                line();
+                awaitReply();
+            }
+        }
+
+        case "todo": {
+            addToDo(tokens);
+            break;
+        }
+
+        case "deadline": {
+            addDeadline(tokens);
+            break;
+        }
+
+        case "event": {
+            addEvent(tokens);
+            break;
+        }
+
+        case "delete": {
+            if (tokens.length > 2) { //unknown elements after command
+                line();
+                System.out.println(reply_prefix + "I don't know what you're talking about.");
+                line();
+                awaitReply();
+            }
+            try {
+                int index = Integer.parseInt(tokens[1]);
+                deleteTask(index);
+                break;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                line();
+                System.out.println(reply_prefix + "Which one do you want to delete exactly?");
+                line();
+                awaitReply();
+            }
+        }
+        
+        default:
+        //Invalid/Unknown command
+            line();
+            System.out.println(reply_prefix + "I don't know what you're talking about.");
+            line();
+            awaitReply();
         }
     }
 
     private void start() throws SigmaException {
         greet();
-        await_reply();
+        awaitReply();
     }
 
     //Misc
