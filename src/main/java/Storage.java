@@ -48,7 +48,6 @@ public class Storage {
 
         //Close file writer
         fw.close();
-        System.out.println("Done write");
     }
 
     public ArrayList<Task> readTasks() {
