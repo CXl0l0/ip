@@ -1,15 +1,15 @@
 public class Event extends Task {
-    String from;
-    String to;
+    private String from;
+    private String to;
 
     public Event(String taskName, boolean done, String from, String to) {
-        super(taskName, done);
+        super(taskName, done, "E");
         this.from = from;
         this.to = to;
     }
 
     public Event(String taskName, String from, String to) throws SigmaException {
-        super(taskName);
+        super(taskName, "E");
         if (taskName.equals("")) {
             throw new NoTaskNameException();
         }
@@ -22,8 +22,16 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public String getFrom() {
+        return this.from;
+    }
+
+    public String getTo() {
+        return this.to;
+    }
+
     @Override
     public String toString() {
-        return "[E]" + "[" + (this.isDone() ? "X" : " ") + "]" + this.getTaskName() + " (From:" + from + " -- To:" + to + ")";
+        return "[E]" + "[" + (this.getIsDone() ? "X" : " ") + "]" + this.getTaskName() + " (From:" + from + " -- To:" + to + ")";
     }
 }

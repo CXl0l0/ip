@@ -1,8 +1,8 @@
 public class Deadline extends Task {
-    String by;
+    private String by;
 
     public Deadline(String taskName, String date) throws SigmaException {
-        super(taskName);
+        super(taskName, "D");
         if (taskName.equals("")) {
             throw new NoTaskNameException();
         }
@@ -14,12 +14,16 @@ public class Deadline extends Task {
     }
 
     public Deadline(String taskName, boolean done, String date) {
-        super(taskName, done);
+        super(taskName, done, "T");
         this.by = date;
+    }
+
+    public String getBy() {
+        return this.by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + "[" + (this.isDone() ? "X" : " ") + "]" + this.getTaskName() + " (By:" + by + ")";
+        return "[D]" + "[" + (this.getIsDone() ? "X" : " ") + "]" + this.getTaskName() + " (By:" + by + ")";
     }
 }

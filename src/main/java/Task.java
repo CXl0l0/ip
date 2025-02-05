@@ -1,31 +1,38 @@
 public class Task {
     private String taskName;
-    private boolean done;
+    private String type;
+    private boolean isDone;
 
-    public Task(String taskName) {
+    public Task(String taskName, String type) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
+        this.type = type;
     }
 
-    public Task(String taskName, boolean done) {
+    public Task(String taskName, boolean isDone, String type) {
         this.taskName = taskName;
-        this.done = done;
+        this.isDone = isDone;
+        this.type = type;
     }
 
     public String getTaskName() {
         return this.taskName;
     }
 
-    public boolean isDone() {
-        return this.done;
+    public String getType() {
+        return this.type;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
     public String toString() {
-        return "[" + (done ? "X" : " ") + "] " + taskName;
+        return "[" + (isDone ? "X" : " ") + "] " + taskName;
     }
 }
