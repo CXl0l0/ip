@@ -1,3 +1,7 @@
+package sigma.task;
+
+import sigma.exception.NoTaskNameException;
+
 public class ToDo extends Task {
     public ToDo(String taskName, boolean done) {
         super(taskName, done, "T");

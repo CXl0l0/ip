@@ -1,9 +1,15 @@
+package sigma.storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import sigma.task.Deadline;
+import sigma.task.Event;
+import sigma.task.Task;
+import sigma.task.ToDo;
 
 public class Storage {
     private static File myFile = new File(".\\data\\Sigma.txt");

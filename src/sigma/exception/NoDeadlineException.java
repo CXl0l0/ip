@@ -1,3 +1,5 @@
+package sigma.exception;
+
 public class NoDeadlineException extends SigmaException {
     public NoDeadlineException() {
         super("When's the deadline yo? " 

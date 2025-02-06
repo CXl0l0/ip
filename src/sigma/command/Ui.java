@@ -1,5 +1,9 @@
+package sigma.command;
+
 import java.io.IOException;
 import java.util.Scanner;
+import sigma.exception.SigmaException;
+import sigma.task.TaskList;
 
 public class Ui {
     protected static String name = "Sigma";
@@ -15,6 +19,10 @@ public class Ui {
 
     private void setName(String name) {
         this.name = name;
+    }
+
+    public static String getReplyPrefix() {
+        return replyPrefix;
     }
 
     private void greet() {
