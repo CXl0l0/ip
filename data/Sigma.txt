@@ -1,3 +1,4 @@
-D//split//false//split// skibidi3//split// 2025-11-09 2311
 D//split//true//split// skibidi3//split// 1935-10-09 0611
-E//split//false//split// skib//split// 2023-12-05 1200//split// 2024-01-21 0517
+T//split//false//split//test 2 
+E//split//false//split// skibidi6//split// 1212-04-13 0000//split// 2929-08-22 0000
+D//split//false//split// bruh//split// 1234-11-11 0456
