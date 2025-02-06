@@ -1,5 +1,11 @@
+package sigma.task;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import sigma.command.Ui;
+import sigma.exception.NoTaskNameException;
+import sigma.exception.SigmaException;
+import sigma.storage.Storage;
 
 public class TaskList {
     //List
@@ -10,7 +16,7 @@ public class TaskList {
     public TaskList() throws IOException {
         this.store = new Storage();
         this.list = store.readTasks();
-        this.replyPrefix = Ui.replyPrefix;
+        this.replyPrefix = Ui.getReplyPrefix();
     }
 
     public ArrayList<Task> getList() {

@@ -1,4 +1,7 @@
+package sigma.command;
+
 import java.io.IOException;
+import sigma.exception.SigmaException;
 
 public class Sigma {
     public Sigma() throws IOException {

@@ -1,4 +1,0 @@
-D//split//true//split// skibidi3//split// 1935-10-09 0611
-T//split//false//split//test 2 
-E//split//false//split// skibidi6//split// 1212-04-13 0000//split// 2929-08-22 0000
-D//split//false//split// bruh//split// 1234-11-11 0456
