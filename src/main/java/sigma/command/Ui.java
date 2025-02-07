@@ -2,6 +2,7 @@ package sigma.command;
 
 import java.io.IOException;
 import java.util.Scanner;
+
 import sigma.exception.SigmaException;
 import sigma.task.TaskList;
 
@@ -25,14 +26,14 @@ public class Ui {
         return replyPrefix;
     }
 
-    private void greet() {
+    protected void greet() {
         line();
         System.out.println(replyPrefix + "What's up, I'm " + name);
         System.out.println(replyPrefix + "What do you want?");
         line();
     }
     
-    private void exit() {
+    protected void exit() {
         line();
         System.out.println(replyPrefix + "Bye.");
         line();
