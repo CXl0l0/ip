@@ -1,11 +1,14 @@
 package sigma.command;
 
-import java.io.IOException;
 import java.util.Scanner;
 
-import sigma.exception.SigmaException;
 import sigma.task.TaskList;
 
+/**
+ * Handles operations that are responsible for user interactions. 
+ * An Ui object provide support to other classes that require
+ * user's input or wants to provide feedbacks back to the user.
+ */
 public class Ui {
     protected static String name = "Sigma";
     protected static String replyPrefix = name + ": ";
@@ -13,7 +16,7 @@ public class Ui {
     private Scanner sc;
     private TaskList list;
 
-    public Ui() throws IOException {
+    public Ui() {
         this.list = new TaskList();
         this.sc = new Scanner(System.in);
     }
@@ -21,11 +24,19 @@ public class Ui {
     private void setName(String name) {
         this.name = name;
     }
-
+    
+    /**
+     * Returns the reply prefix for dialogues spoken by the chatbot.
+     *
+     * @return The reply prefix 
+     */
     public static String getReplyPrefix() {
         return replyPrefix;
     }
 
+    /**
+     * Greets the user upon launching the chatbot.
+    */
     protected void greet() {
         line();
         System.out.println(replyPrefix + "What's up, I'm " + name);
@@ -33,6 +44,9 @@ public class Ui {
         line();
     }
     
+    /**
+     * Close up the dialogue and exits the system.
+     */
     protected void exit() {
         line();
         System.out.println(replyPrefix + "Bye.");
@@ -40,7 +54,11 @@ public class Ui {
         System.exit(0);
     }
     
-    public void awaitReply() throws SigmaException, IOException {
+    /**
+     * Main function that handles the interpretation of user's input.
+     * Awaits reply from the user to proceed to the next actions requested by the user.
+     */
+    public void awaitReply() {
         System.out.println("You: ");
         String reply = sc.nextLine();
         //Token reading solution below inspired by https://www.youtube.com/watch?v=lGHlFaF0F44
@@ -137,7 +155,7 @@ public class Ui {
             }
             
             default:
-            //Invalid/Unknown command
+            //Invalid or Unknown command
             line();
             System.out.println(replyPrefix + "I don't know what you're talking about.");
             line();
@@ -145,7 +163,10 @@ public class Ui {
         }
     }
     
-    public void start() throws SigmaException, IOException {
+    /**
+     * Starts the chatbot by greeting and awaiting the next reply (command) from user.
+     */
+    public void start() {
         greet();
         awaitReply();
     }
