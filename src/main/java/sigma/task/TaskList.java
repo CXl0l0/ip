@@ -204,4 +204,39 @@ public class TaskList {
 
         store.writeTasks(list);
     }
+
+    /**
+     * 
+     * @param tokens
+     */
+    public void find(String[] tokens) {
+        try {
+            ArrayList<Task> matchingTasks = (ArrayList<Task>) list.clone();
+            String keyword = "";
+            for (int i = 1; i < tokens.length; i++) {
+                String word = tokens[i];
+                keyword += " " + word;
+            }
+    
+            String finalKeyword = keyword.substring(1);
+            matchingTasks.removeIf((task) -> !task.getTaskName().contains(finalKeyword));
+    
+            Ui.line();
+            if (matchingTasks.size() == 0) {
+                System.out.println(replyPrefix + "Unable to find any tasks matching the description.");
+            } else {
+                System.out.println(replyPrefix + "These are probably what you're looking for.");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    Task task = matchingTasks.get(i);
+                    System.out.println((i + 1) + ". "+ task.toString());
+                }
+            }
+            Ui.line();
+        } catch (StringIndexOutOfBoundsException e) {
+            Ui.line();
+            System.out.println(replyPrefix + "What are you even finding yo?");
+            Ui.line();
+        }
+
+    }
 }

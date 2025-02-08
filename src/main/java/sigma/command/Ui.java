@@ -153,6 +153,12 @@ public class Ui {
                     awaitReply();
                 }
             }
+
+            case "find": {
+                list.find(tokens);
+                awaitReply();
+                break;
+            }
             
             default:
             //Invalid or Unknown command
