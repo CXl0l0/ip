@@ -14,10 +14,10 @@ public class Ui {
     protected static String replyPrefix = name + ": ";
 
     private Scanner sc;
-    private TaskList list;
+    private TaskList taskList;
 
     public Ui() {
-        this.list = new TaskList();
+        this.taskList = new TaskList();
         this.sc = new Scanner(System.in);
     }
 
@@ -70,7 +70,7 @@ public class Ui {
             break;
             
             case "list":
-            list.showList();
+            taskList.showList();
             awaitReply();
             break;
             
@@ -84,7 +84,7 @@ public class Ui {
                 
                 try {
                     int index = Integer.parseInt(tokens[1]);
-                    list.markDone(index);
+                    taskList.markDone(index);
                     awaitReply();
                     break;
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -105,7 +105,7 @@ public class Ui {
                 
                 try {
                     int index = Integer.parseInt(tokens[1]);
-                    list.markUndone(index);
+                    taskList.markUndone(index);
                     awaitReply();
                     break;
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -117,19 +117,19 @@ public class Ui {
             }
             
             case "todo": {
-                list.addToDo(tokens);
+                taskList.addToDo(tokens);
                 awaitReply();
                 break;
             }
             
             case "deadline": {
-                list.addDeadline(tokens);
+                taskList.addDeadline(tokens);
                 awaitReply();
                 break;
             }
             
             case "event": {
-                list.addEvent(tokens);
+                taskList.addEvent(tokens);
                 awaitReply();
                 break;
             }
@@ -143,7 +143,7 @@ public class Ui {
                 }
                 try {
                     int index = Integer.parseInt(tokens[1]);
-                    list.deleteTask(index);
+                    taskList.deleteTask(index);
                     awaitReply();
                     break;
                 } catch (ArrayIndexOutOfBoundsException e) {

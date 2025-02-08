@@ -51,8 +51,8 @@ public class Storage {
                     break;
     
                 case "E":
-                    String from = ((Event) task).getstartDate();
-                    String to = ((Event) task).getendDate();
+                    String from = ((Event) task).getStartDate();
+                    String to = ((Event) task).getEndDate();
                     fw.write(taskType + SPLIT + isDone + SPLIT + taskName + SPLIT + from + SPLIT + to);
                     break;
                 }

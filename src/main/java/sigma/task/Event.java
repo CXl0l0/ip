@@ -71,7 +71,7 @@ public class Event extends Task {
      *
      * @return The starting date of the event.
      */
-    public String getstartDate() {
+    public String getStartDate() {
         return this.startDate;
     }
 
@@ -80,7 +80,7 @@ public class Event extends Task {
      *
      * @return The ending date of the event.
      */
-    public String getendDate() {
+    public String getEndDate() {
         return this.endDate;
     }
 
