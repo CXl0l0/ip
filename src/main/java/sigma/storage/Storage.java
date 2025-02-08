@@ -26,23 +26,23 @@ public class Storage {
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
             String taskName = task.getTaskName();
-            String type = task.getType();
+            String taskType = task.getTaskType();
             boolean isDone = task.getIsDone();
 
-            switch (type) {
+            switch (taskType) {
             case "T":
-                fw.write(type + SPLIT + isDone + SPLIT + taskName);
+                fw.write(taskType + SPLIT + isDone + SPLIT + taskName);
                 break;
             
             case "D":
                 String by = ((Deadline) task).getBy();
-                fw.write(type + SPLIT + isDone + SPLIT + taskName + SPLIT + by);
+                fw.write(taskType + SPLIT + isDone + SPLIT + taskName + SPLIT + by);
                 break;
 
             case "E":
                 String from = ((Event) task).getFrom();
                 String to = ((Event) task).getTo();
-                fw.write(type + SPLIT + isDone + SPLIT + taskName + SPLIT + from + SPLIT + to);
+                fw.write(taskType + SPLIT + isDone + SPLIT + taskName + SPLIT + from + SPLIT + to);
                 break;
             }
 

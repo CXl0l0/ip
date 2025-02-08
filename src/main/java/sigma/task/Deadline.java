@@ -3,6 +3,7 @@ package sigma.task;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import sigma.exception.NoDeadlineException;
 import sigma.exception.NoTaskNameException;
 import sigma.exception.SigmaException;
@@ -32,8 +33,8 @@ public class Deadline extends Task {
         this.by = date;
     }
 
-    public Deadline(String taskName, boolean done, String date) {
-        super(taskName, done, "D");
+    public Deadline(String taskName, boolean isDone, String date) {
+        super(taskName, isDone, "D");
         this.by = date;
     }
 

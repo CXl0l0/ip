@@ -2,27 +2,27 @@ package sigma.task;
 
 public class Task {
     private String taskName;
-    private String type;
+    private String taskType;
     private boolean isDone;
 
-    public Task(String taskName, String type) {
+    public Task(String taskName, String taskType) {
         this.taskName = taskName;
         this.isDone = false;
-        this.type = type;
+        this.taskType = taskType;
     }
 
-    public Task(String taskName, boolean isDone, String type) {
+    public Task(String taskName, boolean isDone, String taskType) {
         this.taskName = taskName;
         this.isDone = isDone;
-        this.type = type;
+        this.taskType = taskType;
     }
 
     public String getTaskName() {
         return this.taskName;
     }
 
-    public String getType() {
-        return this.type;
+    public String getTaskType() {
+        return this.taskType;
     }
 
     public boolean getIsDone() {
