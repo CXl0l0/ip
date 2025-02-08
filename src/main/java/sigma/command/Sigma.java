@@ -1,20 +1,26 @@
 package sigma.command;
 
-import java.io.IOException;
-import sigma.exception.SigmaException;
-
+/**
+ * Represents the chatbot object Sigma. 
+ * Provides task tracking management services.
+ */
 public class Sigma {
-    public Sigma() throws IOException {
+    private Ui ui;
+    /**
+     * Constructor of Sigma object.
+     */
+    public Sigma() {
         this.ui = new Ui();
     }
     
-    private Ui ui;
-
-    private void launch() throws SigmaException, IOException {
+    /**
+     * Function to start the chatbot.
+     */
+    private void launch() {
         ui.start();
     }
 
-    public static void main(String[] args) throws SigmaException, IOException {
+    public static void main(String[] args) {
         Sigma sigma = new Sigma();
         sigma.launch();
     }

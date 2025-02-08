@@ -1,29 +1,42 @@
 package sigma.task;
 
-import java.io.IOException;
 import java.util.ArrayList;
+
 import sigma.command.Ui;
 import sigma.exception.NoTaskNameException;
 import sigma.exception.SigmaException;
 import sigma.storage.Storage;
 
+/**
+ * Represents the list which stores the current recorded tasks whether by user input or
+ * from data files. Tasks included in this object are: To Do tasks, Deadline tasks and
+ * Event tasks.
+ */
 public class TaskList {
-    //List
     private ArrayList<Task> list;
     private Storage store;
     private String replyPrefix;
 
-    public TaskList() throws IOException {
+    /**
+     * Constructor of TaskList object. Intialized
+     * by calling the constructors of storage for reading data files.
+     */
+    public TaskList() {
         this.store = new Storage();
         this.list = store.readTasks();
         this.replyPrefix = Ui.getReplyPrefix();
     }
 
+    /**
+     * A getter method for getting the list of tasks recorded by this object.
+     * 
+     * @return An array list of Tasks.
+     */
     public ArrayList<Task> getList() {
         return this.list;
     }
 
-    public void showList() throws SigmaException, IOException {
+    public void showList() {
         Ui.line();
         if (list.size() == 0) {
             System.out.println(replyPrefix + "The list is empty right now.");
@@ -37,7 +50,7 @@ public class TaskList {
         Ui.line();
     }
     
-    public void addToDo(String[] tokens) throws SigmaException, IOException {
+    public void addToDo(String[] tokens) {
         Ui.line();
         
         String taskName = "";
@@ -62,7 +75,7 @@ public class TaskList {
         store.writeTasks(list);
     }
     
-    public void addDeadline(String[] tokens) throws SigmaException, IOException {
+    public void addDeadline(String[] tokens) {
         Ui.line();
         
         try {
@@ -97,7 +110,7 @@ public class TaskList {
         store.writeTasks(list);
     }
     
-    public void addEvent(String[] tokens) throws SigmaException, IOException {
+    public void addEvent(String[] tokens) {
         Ui.line();
         
         try {
@@ -141,7 +154,7 @@ public class TaskList {
         store.writeTasks(list);
     }
     
-    public void markDone(int i) throws SigmaException, IOException {
+    public void markDone(int i) {
         try {
             Task todo = list.get(i - 1);
             todo.setDone(true);
@@ -158,7 +171,7 @@ public class TaskList {
         store.writeTasks(list);
     }
     
-    public void markUndone(int i) throws SigmaException, IOException {
+    public void markUndone(int i) {
         try {
             Task todo = list.get(i - 1);
             todo.setDone(false);
@@ -175,7 +188,7 @@ public class TaskList {
         store.writeTasks(list);
     }
     
-    public void deleteTask(int i) throws SigmaException, IOException {
+    public void deleteTask(int i) {
         try {
             Task task = list.get(i - 1);
             list.remove(i - 1);

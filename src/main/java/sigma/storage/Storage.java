@@ -6,56 +6,77 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import sigma.task.Deadline;
 import sigma.task.Event;
 import sigma.task.Task;
 import sigma.task.ToDo;
 
+/**
+ * Represents an object that is responsible for reading the data files from the hard disk and sending
+ * the data stored to other classes that benefits from it.
+ */
 public class Storage {
     private static File myFile = new File(".\\data\\Sigma.txt");
     private static final String SPLIT = "//split//";
 
-    public Storage() throws IOException {
+    public Storage() {
         myFile.getParentFile().mkdirs();
     }
 
-    public void writeTasks(ArrayList<Task> list) throws IOException {
-        FileWriter fw = new FileWriter(myFile);
-        
-        //Write each tasks to file
-        for (int i = 0; i < list.size(); i++) {
-            Task task = list.get(i);
-            String taskName = task.getTaskName();
-            String type = task.getType();
-            boolean isDone = task.getIsDone();
-
-            switch (type) {
-            case "T":
-                fw.write(type + SPLIT + isDone + SPLIT + taskName);
-                break;
+    /**
+     * Saves the tasks list's information into the local hard disk.
+     *
+     * @param list The task list that is being saved.
+     */
+    public void writeTasks(ArrayList<Task> list) {
+        try {
+            FileWriter fw = new FileWriter(myFile);
             
-            case "D":
-                String by = ((Deadline) task).getBy();
-                fw.write(type + SPLIT + isDone + SPLIT + taskName + SPLIT + by);
-                break;
-
-            case "E":
-                String from = ((Event) task).getFrom();
-                String to = ((Event) task).getTo();
-                fw.write(type + SPLIT + isDone + SPLIT + taskName + SPLIT + from + SPLIT + to);
-                break;
+            //Write each tasks to file
+            for (int i = 0; i < list.size(); i++) {
+                Task task = list.get(i);
+                String taskName = task.getTaskName();
+                String taskType = task.getTaskType();
+                boolean isDone = task.getIsDone();
+    
+                switch (taskType) {
+                case "T":
+                    fw.write(taskType + SPLIT + isDone + SPLIT + taskName);
+                    break;
+                
+                case "D":
+                    String by = ((Deadline) task).getBy();
+                    fw.write(taskType + SPLIT + isDone + SPLIT + taskName + SPLIT + by);
+                    break;
+    
+                case "E":
+                    String from = ((Event) task).getstartDate();
+                    String to = ((Event) task).getendDate();
+                    fw.write(taskType + SPLIT + isDone + SPLIT + taskName + SPLIT + from + SPLIT + to);
+                    break;
+                }
+    
+                if (i < list.size() - 1) { 
+                    //Don't write a new line for the last list
+                    fw.write("\n");
+                }
             }
+    
+            //Close file writer
+            fw.close();
 
-            if (i < list.size() - 1) { 
-                //Don't write a new line for the last list
-                fw.write("\n");
-            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-
-        //Close file writer
-        fw.close();
     }
 
+    /**
+     * Reads and interprets the saved tasks list's data from the local hard disk
+     * and returns the compiled information as an ArrayList<Task> object.
+     * 
+     * @return An array list of 'Task' object.
+     */
     public ArrayList<Task> readTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -65,11 +86,11 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] data = line.split(SPLIT);
-                String type = data[0];
+                String taskType = data[0];
                 boolean isDone = data[1].equals("true");
                 String taskName = data[2];
 
-                switch (type) {
+                switch (taskType) {
                     case "T":
                         ToDo todo = new ToDo(taskName, isDone);
                         tasks.add(todo);

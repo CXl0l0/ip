@@ -3,58 +3,93 @@ package sigma.task;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import sigma.exception.NoEventTimeException;
 import sigma.exception.NoTaskNameException;
 import sigma.exception.SigmaException;
 import sigma.exception.WrongDateTimeFormatException;
 
+/**
+ * A subset of the class "Task" which represents tasks with a period of effect.
+ * 2 additional field which stores the start date of the event and end date of the
+ * event.
+ */
 public class Event extends Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private String from;
-    private String to;
+    private String startDate;
+    private String endDate;
 
-    public Event(String taskName, boolean done, String from, String to) {
-        super(taskName, done, "E");
-        this.from = from;
-        this.to = to;
-    }
-
-    public Event(String taskName, String from, String to) throws SigmaException {
+    /**
+     * Constructor of the Event object.
+     *
+     * @param taskName The name of the task.
+     * @param startDate The starting date of the task.
+     * @param endDate The ending date of the task.
+     * @throws SigmaException If there are missing information or wrong date format.
+     */
+    public Event(String taskName, String startDate, String endDate) throws SigmaException {
         super(taskName, "E");
         if (taskName.equals("")) {
             throw new NoTaskNameException();
         }
-
-        if (from.equals("") || to.equals("")) {
+        
+        if (startDate.equals("") || endDate.equals("")) {
             throw new NoEventTimeException();
         }
-
+        
         //To check if entered date and time is in the correct format
         try {
-            LocalDateTime.parse(from.substring(1), FORMATTER);
-            LocalDateTime.parse(to.substring(1), FORMATTER);
+            LocalDateTime.parse(startDate.substring(1), FORMATTER);
+            LocalDateTime.parse(endDate.substring(1), FORMATTER);
         } catch (DateTimeException e) {
             throw new WrongDateTimeFormatException();
         }
-
-        this.from = from;
-        this.to = to;
+        
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+    
+    /**
+     * Constructor of the Event object. Returns an Event object by 
+     * taking in 1 extra argument which indicates the marked/unmarked 
+     * state of the task. For internal use only (eg: Creating event objects
+     * by reading data files).
+     *
+     * @param taskName The name of the task.
+     * @param isDone The state of completion of the task.
+     * @param startDate The starting date of the task.
+     * @param endDate The ending date of the task.
+     */
+    public Event(String taskName, boolean isDone, String startDate, String endDate) {
+        super(taskName, isDone, "E");
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public String getFrom() {
-        return this.from;
+    /**
+     * A getter method. Returns the starting date of the event object.
+     *
+     * @return The starting date of the event.
+     */
+    public String getstartDate() {
+        return this.startDate;
     }
 
-    public String getTo() {
-        return this.to;
+    /**
+     * A getter method. Returns the ending date of the event object.
+     *
+     * @return The ending date of the event.
+     */
+    public String getendDate() {
+        return this.endDate;
     }
 
     @Override
     public String toString() {
-        LocalDateTime dateTimeFrom = LocalDateTime.parse(this.from.substring(1), FORMATTER);
-        LocalDateTime dateTimeTo = LocalDateTime.parse(this.to.substring(1), FORMATTER);
-        String dateTimeFromString = dateTimeFrom.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
-        String dateTimeToString = dateTimeTo.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
-        return "[E]" + "[" + (this.getIsDone() ? "X" : " ") + "]" + this.getTaskName() + " (From: " + dateTimeFromString + " -- To: " + dateTimeToString + ")";
+        LocalDateTime dateTimeStartDate = LocalDateTime.parse(this.startDate.substring(1), FORMATTER);
+        LocalDateTime dateTimeEndDate = LocalDateTime.parse(this.endDate.substring(1), FORMATTER);
+        String dateTimeStartDateString = dateTimeStartDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        String dateTimeEndDateString = dateTimeEndDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        return "[E]" + "[" + (this.getIsDone() ? "X" : " ") + "]" + this.getTaskName() + " (From: " + dateTimeStartDateString + " -- To: " + dateTimeEndDateString + ")";
     }
 }
