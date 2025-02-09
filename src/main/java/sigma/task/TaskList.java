@@ -36,207 +36,147 @@ public class TaskList {
         return this.list;
     }
 
-    public void showList() {
-        Ui.line();
-        if (list.size() == 0) {
-            System.out.println(replyPrefix + "The list is empty right now.");
-        } else {
-            System.out.println(replyPrefix + "Stop slacking and lock in.");
-            for (int i = 0; i < list.size(); i++) {
-                Task task = list.get(i);
-                System.out.println((i + 1) + ". "+ task.toString());
-            }
-        }
-        Ui.line();
-    }
-    
-    public void addToDo(String[] tokens) {
-        Ui.line();
-        
-        String taskName = "";
-        for (int i = 1; i < tokens.length; i++) {
-            taskName += tokens[i] + " ";
-        }
-        
-        try {
-            ToDo todo = new ToDo(taskName);
-            list.add(todo);
-            
-            System.out.println(replyPrefix + "Aight, I will remember that for you.");
-            System.out.println("added: " + todo.toString());
-            System.out.println("Now you have " + list.size() + " task(s) in the list!");
-            
-            Ui.line();
-        } catch (NoTaskNameException e) {
-            System.out.println(replyPrefix + e.getMessage());
-            Ui.line();
-        }
-
-        store.writeTasks(list);
-    }
-    
-    public void addDeadline(String[] tokens) {
-        Ui.line();
-        
-        try {
-            String taskName = "";
-            String date = "";
-            boolean isReadingDate = false;
-            for (int i = 1; i < tokens.length; i++) {
-                String str = tokens[i];
-                if (isReadingDate) {
-                    date += " " + str;
-                } else if (str.equals("/by")) {
-                    isReadingDate = true;
-                    continue;
-                } else {
-                    taskName += " " + str;
-                }
-            }
-            
-            Deadline deadline = new Deadline(taskName, date);
-            list.add(deadline);
-            
-            System.out.println(replyPrefix + "Aight, I will remember that for you.");
-            System.out.println("added: " + deadline.toString());
-            System.out.println("Now you have " + list.size() + " task(s) in the list!");
-            
-            Ui.line();
-        } catch (SigmaException e) {
-            System.out.println(replyPrefix + e.getMessage());
-            Ui.line();
-        }
-
-        store.writeTasks(list);
-    }
-    
-    public void addEvent(String[] tokens) {
-        Ui.line();
-        
-        try {
-            String taskName = "";
-            String from = "";
-            String to = "";
-            boolean isReadingFrom = false;
-            boolean isReadingTo = false;
-            for (int i = 1; i < tokens.length; i++) {
-                String str = tokens[i];
-                if (str.equals("/from")) {
-                    isReadingFrom = true;
-                    isReadingTo = false;
-                    continue;
-                } else if (str.equals("/to")) {
-                    isReadingFrom = false;
-                    isReadingTo = true;
-                    continue;
-                } else if (isReadingFrom) {
-                    from += " " + str;
-                } else if (isReadingTo) {
-                    to += " " + str;
-                } else {
-                    taskName += " " + str;
-                }
-            }
-            
-            Event event = new Event(taskName, from, to);
-            list.add(event);
-            
-            System.out.println(replyPrefix + "Aight, I will remember that for you.");
-            System.out.println("added: " + event.toString());
-            System.out.println("Now you have " + list.size() + " task(s) in the list!");
-            
-            Ui.line();
-        } catch (SigmaException e) {
-            System.out.println(replyPrefix + e.getMessage());
-            Ui.line();
-        }
-        
-        store.writeTasks(list);
-    }
-    
-    public void markDone(int i) {
-        try {
-            Task todo = list.get(i - 1);
-            todo.setDone(true);
-            Ui.line();
-            System.out.println("Good job bro, keep the grind going!");
-            System.out.println(todo);
-            Ui.line();
-        } catch (IndexOutOfBoundsException e) {
-            Ui.line();
-            System.out.println(replyPrefix + "Enter a valid task number. There probably ain't even any tasks to mark you bum.");
-            Ui.line();
-        }
-
-        store.writeTasks(list);
-    }
-    
-    public void markUndone(int i) {
-        try {
-            Task todo = list.get(i - 1);
-            todo.setDone(false);
-            Ui.line();
-            System.out.println("Come on bruh, focus!");
-            System.out.println(todo);
-            Ui.line();
-        } catch (IndexOutOfBoundsException e) {
-            Ui.line();
-            System.out.println(replyPrefix + "Enter a valid task number. There probably ain't even any tasks to unmark you bum.");
-            Ui.line();
-        }
-
-        store.writeTasks(list);
-    }
-    
-    public void deleteTask(int i) {
-        try {
-            Task task = list.get(i - 1);
-            list.remove(i - 1);
-            Ui.line();
-            System.out.println("I've removed this for you bud.\n" + i + ". " + task.toString());
-            System.out.println("You've got " + list.size() + " task(s) left.");
-            Ui.line();
-        } catch (IndexOutOfBoundsException e) {
-            Ui.line();
-            System.out.println(replyPrefix + "Enter a valid task number. There probably ain't even any tasks to delete you bum.");
-            Ui.line();
-        }
-
-        store.writeTasks(list);
+    /**
+     * A getter method for getting the task in the list based on the index.
+     * 
+     * @param i The index of the task requested.
+     * @return Task object requested.
+     */
+    public Task getTask(int i) {
+        return list.get(i);
     }
 
     /**
+     * A getter method for getting the list's current size.
      * 
-     * @param tokens
+     * @return The number of tasks in the list.
      */
-    public void find(String[] tokens) {
+    public int getSize() {
+        return list.size();
+    }
+    
+    /**
+     * Add the indicated To Do task into TaskList. 
+     * 
+     * @param taskName The name of the task.
+     * @throws NoTaskNameException If taskName is empty.
+     * @return The ToDo task created.
+     */
+    public ToDo addToDo(String taskName) throws NoTaskNameException {
         try {
-            ArrayList<Task> matchingTasks = (ArrayList<Task>) list.clone();
-            String keyword = "";
-            for (int i = 1; i < tokens.length; i++) {
-                String word = tokens[i];
-                keyword += " " + word;
-            }
+            ToDo todo = new ToDo(taskName);
+            list.add(todo);
+            store.writeTasks(list);
+            return todo;
+        } catch (NoTaskNameException e) {
+            throw e;
+        }
+    }
     
-            String finalKeyword = keyword.substring(1);
-            matchingTasks.removeIf((task) -> !task.getTaskName().contains(finalKeyword));
+    /**
+     * Add the indicated Deadline task into TaskList. 
+     * 
+     * @param taskName The name of the task.
+     * @param date The deadline date of the task.
+     * @throws SigmaException If the inputs are erroneous.
+     * @return The deadline task created.
+     */
+    public Deadline addDeadline(String taskName, String date) throws SigmaException {
+        try {
+            Deadline deadline = new Deadline(taskName, date);
+            list.add(deadline);
+            store.writeTasks(list);
+            return deadline;
+        } catch (SigmaException e) {
+            throw e;
+        }
+    }
     
-            Ui.line();
-            if (matchingTasks.size() == 0) {
-                System.out.println(replyPrefix + "Unable to find any tasks matching the description.");
-            } else {
-                System.out.println(replyPrefix + "These are probably what you're looking for.");
-                for (int i = 0; i < matchingTasks.size(); i++) {
-                    Task task = matchingTasks.get(i);
-                    System.out.println((i + 1) + ". "+ task.toString());
-                }
-            }
-            Ui.line();
-        } catch (StringIndexOutOfBoundsException e) {
-            Ui.line();
-            System.out.println(replyPrefix + "What are you even finding yo?");
-            Ui.line();
+    /**
+     * Add the indicated Event task into TaskList. 
+     * 
+     * @param TaskName The name of the task.
+     * @param from The starting date of the event.
+     * @param to The ending date of the event.
+     * @throws SigmaException If the inputs are erroneous.
+     * @return The event task created.
+     */
+    public Event addEvent(String taskName, String from, String to) throws SigmaException {
+        try {
+            Event event = new Event(taskName, from, to);
+            list.add(event);
+            store.writeTasks(list);
+            return event;
+        } catch (SigmaException e) {
+            throw e;
+        }
+    }
+    
+    /**
+     * Mark the indicated task according 
+     * to the index in TaskList as done.
+     * 
+     * @param i The index of the task to be marked.
+     * @throws IndexOutOfBoundsException If entered an invalid index to mark.
+     */
+    public void markDone(int i) throws IndexOutOfBoundsException {
+        try {
+            Task todo = list.get(i - 1);
+            todo.setDone(true);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException();
         }
 
+        store.writeTasks(list);
+    }
+    
+    /**
+     * Mark the indicated task according 
+     * to the index in TaskList as not done.
+     * 
+     * @param i The index of the task to be unmarked.
+     * @throws IndexOutOfBoundsException If entered an invalid index to unmark.
+     */
+    public void markUndone(int i) throws IndexOutOfBoundsException {
+        try {
+            Task todo = list.get(i - 1);
+            todo.setDone(false);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        store.writeTasks(list);
+    }
+    
+    /**
+     * Delete the indicated task according 
+     * to the index in TaskList.
+     * 
+     * @param i The index of the task to be deleted.
+     * @throws IndexOutOfBoundsException If entered an invalid index to delete.
+     */
+    public Task deleteTask(int i) throws IndexOutOfBoundsException {
+        try {
+            Task task = list.get(i - 1);
+            list.remove(i - 1);
+            store.writeTasks(list);
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw e;
+        }
+
+    }
+
+    /**
+     * Find tasks in TaskList that fits the keyword
+     * inputted by the user.
+     * 
+     * @param finalKeyword The keyword to search in the task list.
+     * @return The array list of matching tasks.
+     */
+    public ArrayList<Task> find(String finalKeyword) {
+        ArrayList<Task> matchingTasks = (ArrayList<Task>) list.clone();
+        matchingTasks.removeIf((task) -> !task.getTaskName().contains(finalKeyword));
+        return matchingTasks;
     }
 }

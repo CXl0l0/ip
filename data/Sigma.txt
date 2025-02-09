@@ -1,3 +1,5 @@
-T//split//false//split//skibidi 
-D//split//false//split// do homework//split// 2025-12-31 0000
-T//split//false//split//test 123 
+T//split//false//split//bruh 
+T//split//false//split//skasijdiahd jasdj lkjwa d 
+D//split//true//split// test123 1//split// 2025-12-03 0049
+D//split//false//split//  asd//split// 2025-12-03 0049
+E//split//true//split// event1//split// 2023-12-11 0011//split// 2024-01-04 1122
