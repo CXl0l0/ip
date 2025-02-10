@@ -1,7 +1,8 @@
 package sigma.command;
 
+//CHECKSTYLE.OFF: Regexp
 /**
- * Represents the chatbot object Sigma. 
+ * Represents the chatbot object Sigma.
  * Provides task tracking management services.
  */
 public class Sigma {
@@ -12,7 +13,7 @@ public class Sigma {
     public Sigma() {
         this.ui = new Ui();
     }
-    
+
     /**
      * Function to start the chatbot.
      */

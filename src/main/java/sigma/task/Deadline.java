@@ -9,6 +9,7 @@ import sigma.exception.NoTaskNameException;
 import sigma.exception.SigmaException;
 import sigma.exception.WrongDateTimeFormatException;
 
+//CHECKSTYLE.OFF: Regexp
 /**
  * A subset of the class "Task" which represents tasks with deadline. An additional 'by' field
  * is added to indicate the deadline of the task indicated.
@@ -74,6 +75,7 @@ public class Deadline extends Task {
     public String toString() {
         LocalDateTime dateTime = LocalDateTime.parse(this.by.substring(1), FORMATTER);
         String dateTimeString = dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
-        return "[D]" + "[" + (this.getIsDone() ? "X" : " ") + "]" + this.getTaskName() + " (By: " + dateTimeString + ")";
+        return "[D]" + "[" + (this.getIsDone() ? "X" : " ") + "]" 
+                + this.getTaskName() + " (By: " + dateTimeString + ")";
     }
 }

@@ -2,6 +2,7 @@ package sigma.task;
 
 import sigma.exception.NoTaskNameException;
 
+//CHECKSTYLE.OFF: Regexp
 /**
  * Simplest subset of the class "Task" which represents basic to do tasks with no other
  * extra fields.

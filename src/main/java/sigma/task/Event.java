@@ -9,6 +9,7 @@ import sigma.exception.NoTaskNameException;
 import sigma.exception.SigmaException;
 import sigma.exception.WrongDateTimeFormatException;
 
+//CHECKSTYLE.OFF: Regexp
 /**
  * A subset of the class "Task" which represents tasks with a period of effect.
  * 2 additional field which stores the start date of the event and end date of the
@@ -90,6 +91,7 @@ public class Event extends Task {
         LocalDateTime dateTimeEndDate = LocalDateTime.parse(this.endDate.substring(1), FORMATTER);
         String dateTimeStartDateString = dateTimeStartDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
         String dateTimeEndDateString = dateTimeEndDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
-        return "[E]" + "[" + (this.getIsDone() ? "X" : " ") + "]" + this.getTaskName() + " (From: " + dateTimeStartDateString + " -- To: " + dateTimeEndDateString + ")";
+        return "[E]" + "[" + (this.getIsDone() ? "X" : " ") + "]" + this.getTaskName() 
+                + " (From: " + dateTimeStartDateString + " -- To: " + dateTimeEndDateString + ")";
     }
 }
