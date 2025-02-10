@@ -1,5 +1,6 @@
-T//split//false//split//bruh 
 T//split//false//split//skasijdiahd jasdj lkjwa d 
 D//split//true//split// test123 1//split// 2025-12-03 0049
 D//split//false//split//  asd//split// 2025-12-03 0049
-E//split//true//split// event1//split// 2023-12-11 0011//split// 2024-01-04 1122
+E//split//false//split// event1//split// 2023-12-11 0011//split// 2024-01-04 1122
+D//split//false//split// abcd//split// 1234-01-20 0000
+E//split//false//split// event//split// 2020-02-20 0020//split// 2020-12-02 2000

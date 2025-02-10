@@ -91,7 +91,7 @@ public class Ui {
             line();
         } else {
             try {
-                int index = Integer.parseInt(tokens[1]);
+                int index = Parser.parseIndex(tokens);
                 taskList.markDone(index);
 
                 line();
@@ -123,12 +123,13 @@ public class Ui {
             line();
         } else {
             try {
-                int index = Integer.parseInt(tokens[1]);
+                int index = Parser.parseIndex(tokens);
                 taskList.markUndone(index);
-                Ui.line();
+                
+                line();
                 System.out.println("Come on bruh, focus!");
                 System.out.println(taskList.getTask(index - 1));
-                Ui.line();
+                line();
             } catch (ArrayIndexOutOfBoundsException e) {
                 line();
                 System.out.println(replyPrefix + "Which one do you want to unmark exactly?");
@@ -149,10 +150,7 @@ public class Ui {
     private void handleAddToDo(String[] tokens) {
         line();
         
-        String taskName = "";
-        for (int i = 1; i < tokens.length; i++) {
-            taskName += tokens[i] + " ";
-        }
+        String taskName = Parser.parseToDo(tokens);
         
         try {
             ToDo todo = taskList.addToDo(taskName);
@@ -174,22 +172,11 @@ public class Ui {
     private void handleAddDeadline(String[] tokens) {
         line();
         
+        String[] parsedInfos = Parser.parseDeadline(tokens);
+        String taskName = parsedInfos[0];
+        String date = parsedInfos[1];
+
         try {
-            String taskName = "";
-            String date = "";
-            boolean isReadingDate = false;
-            for (int i = 1; i < tokens.length; i++) {
-                String str = tokens[i];
-                if (isReadingDate) {
-                    date += " " + str;
-                } else if (str.equals("/by")) {
-                    isReadingDate = true;
-                    continue;
-                } else if (!str.equals("")) {
-                    taskName += " " + str;
-                }
-            }
-            
             Deadline deadline = taskList.addDeadline(taskName, date);
             
             System.out.println(replyPrefix + "Aight, I will remember that for you.");
@@ -211,31 +198,12 @@ public class Ui {
         line();
         
         try {
-            String taskName = "";
-            String from = "";
-            String to = "";
-            boolean isReadingFrom = false;
-            boolean isReadingTo = false;
-            for (int i = 1; i < tokens.length; i++) {
-                String str = tokens[i];
-                if (str.equals("/from")) {
-                    isReadingFrom = true;
-                    isReadingTo = false;
-                    continue;
-                } else if (str.equals("/to")) {
-                    isReadingFrom = false;
-                    isReadingTo = true;
-                    continue;
-                } else if (isReadingFrom) {
-                    from += " " + str;
-                } else if (isReadingTo) {
-                    to += " " + str;
-                } else if (!str.equals("")) {
-                    taskName += " " + str;
-                }
-            }
+            String[] parsedInfos = Parser.parseEvent(tokens);
+            String taskName = parsedInfos[0];
+            String startDate = parsedInfos[1];
+            String endDate = parsedInfos[2];
 
-            Event event = taskList.addEvent(taskName, from, to);
+            Event event = taskList.addEvent(taskName, startDate, endDate);
             System.out.println(replyPrefix + "Aight, I will remember that for you.");
             System.out.println("added: " + event.toString());
             System.out.println("Now you have " + taskList.getSize() + " task(s) in the list!");
@@ -258,7 +226,7 @@ public class Ui {
             System.out.println(replyPrefix + "I don't know what you're talking about.");
         } else {
             try {
-                int index = Integer.parseInt(tokens[1]);
+                int index = Parser.parseIndex(tokens);
                 Task task = taskList.deleteTask(index);
                 
                 System.out.println("I've removed this for you bud.\n" + index + ". " + task.toString());
@@ -282,15 +250,9 @@ public class Ui {
         line();
 
         try {
-            String keyword = "";
-            for (int i = 1; i < tokens.length; i++) {
-                String word = tokens[i];
-                keyword += " " + word;
-            }
+            String keyword = Parser.parseFind(tokens);
     
-            String finalKeyword = keyword.substring(1);
-    
-            ArrayList<Task> matchingTasks = taskList.find(finalKeyword);
+            ArrayList<Task> matchingTasks = taskList.find(keyword);
 
             if (matchingTasks.size() == 0) {
                 System.out.println(replyPrefix + "Unable to find any tasks matching the description.");
