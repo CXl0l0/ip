@@ -1,10 +1,14 @@
 package sigma.command;
 
+//CHECKSTYLE.OFF: Regexp
+/**
+ * A parser class that handles interpreting user inputs,
+ * then outputting appropriate information back.
+ */
 public class Parser {
     /**
      * Parses the tokens for commands that requires the index of the task.
      * Returns the index of the target tasks to be acted on.
-     * 
      * @param tokens The tokens of string to be interpreted.
      * @return The index of the target task.
      * @throws ArrayIndexOutOfBoundsException If there is missing input of the target to be marked.
@@ -19,7 +23,6 @@ public class Parser {
 
     /**
      * Parses the tokens for the command to add ToDo tasks.
-     * 
      * @param tokens The tokens of string to be interpreted.
      * @return The string of the task name.
      */
@@ -34,7 +37,6 @@ public class Parser {
 
     /**
      * Parses the tokens for the command to add Deadline tasks.
-     * 
      * @param tokens The tokens of string to be interpreted.
      * @return An array of strings containing the task name and deadline.
      */
@@ -59,7 +61,6 @@ public class Parser {
 
     /**
      * Parses the tokens for the command to add Event tasks.
-     * 
      * @param tokens The tokens of string to be interpreted.
      * @return An array of strings containing the task name, event start date and end date.
      */
@@ -93,7 +94,6 @@ public class Parser {
 
     /**
      * Parses the tokens for the command to find tasks.
-     * 
      * @param tokens The tokens of string to be interpreted.
      * @return The keyword string.
      */

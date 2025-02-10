@@ -12,6 +12,7 @@ import sigma.task.Event;
 import sigma.task.Task;
 import sigma.task.ToDo;
 
+//CHECKSTYLE.OFF: Regexp
 /**
  * Represents an object that is responsible for reading the data files from the hard disk and sending
  * the data stored to other classes that benefits from it.
@@ -55,7 +56,12 @@ public class Storage {
                     String to = ((Event) task).getEndDate();
                     fw.write(taskType + SPLIT + isDone + SPLIT + taskName + SPLIT + from + SPLIT + to);
                     break;
+
+                default:
+                    break;
                 }
+
+
     
                 if (i < list.size() - 1) { 
                     //Don't write a new line for the last list
@@ -73,9 +79,9 @@ public class Storage {
 
     /**
      * Reads and interprets the saved tasks list's data from the local hard disk
-     * and returns the compiled information as an ArrayList<Task> object.
+     * and returns the compiled information as an ArrayList Task object.
      * 
-     * @return An array list of 'Task' object.
+     * @return An array list of Task objects.
      */
     public ArrayList<Task> readTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -91,24 +97,28 @@ public class Storage {
                 String taskName = data[2];
 
                 switch (taskType) {
-                    case "T":
-                        ToDo todo = new ToDo(taskName, isDone);
-                        tasks.add(todo);
-                        break;
+                case "T":
+                    ToDo todo = new ToDo(taskName, isDone);
+                    tasks.add(todo);
+                    break;
                     
-                    case "D":
-                        String by = data[3];
-                        Deadline deadline = new Deadline(taskName, isDone, by);
-                        tasks.add(deadline);
-                        break;
+                case "D":
+                    String by = data[3];
+                    Deadline deadline = new Deadline(taskName, isDone, by);
+                    tasks.add(deadline);
+                    break;
         
-                    case "E":
-                        String from = data[3];
-                        String to = data[4];
-                        Event event = new Event(taskName, isDone, from, to);
-                        tasks.add(event);
-                        break;
-                    }
+                case "E":
+                    String from = data[3];
+                    String to = data[4];
+                    Event event = new Event(taskName, isDone, from, to);
+                    tasks.add(event);
+                    break;
+
+                default:
+                    System.out.println("File corrupted.");
+                    break;
+                }
             }
 
         } catch (FileNotFoundException e) {

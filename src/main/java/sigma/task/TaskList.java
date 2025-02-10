@@ -7,6 +7,7 @@ import sigma.exception.NoTaskNameException;
 import sigma.exception.SigmaException;
 import sigma.storage.Storage;
 
+//CHECKSTYLE.OFF: Regexp
 /**
  * Represents the list which stores the current recorded tasks whether by user input or
  * from data files. Tasks included in this object are: To Do tasks, Deadline tasks and
@@ -59,8 +60,8 @@ public class TaskList {
      * Add the indicated To Do task into TaskList. 
      * 
      * @param taskName The name of the task.
-     * @throws NoTaskNameException If taskName is empty.
      * @return The ToDo task created.
+     * @throws NoTaskNameException If taskName is empty.
      */
     public ToDo addToDo(String taskName) throws NoTaskNameException {
         try {
@@ -78,8 +79,8 @@ public class TaskList {
      * 
      * @param taskName The name of the task.
      * @param date The deadline date of the task.
-     * @throws SigmaException If the inputs are erroneous.
      * @return The deadline task created.
+     * @throws SigmaException If the inputs are erroneous.
      */
     public Deadline addDeadline(String taskName, String date) throws SigmaException {
         try {
@@ -95,11 +96,11 @@ public class TaskList {
     /**
      * Add the indicated Event task into TaskList. 
      * 
-     * @param TaskName The name of the task.
+     * @param taskName The name of the task.
      * @param from The starting date of the event.
      * @param to The ending date of the event.
-     * @throws SigmaException If the inputs are erroneous.
      * @return The event task created.
+     * @throws SigmaException If the inputs are erroneous.
      */
     public Event addEvent(String taskName, String from, String to) throws SigmaException {
         try {

@@ -1,11 +1,14 @@
 package sigma.task;
 
+//CHECKSTYLE.OFF: CustomImportOrder
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import sigma.exception.SigmaException;
 import sigma.exception.WrongDateTimeFormatException;
 
+//CHECKSTYLE.OFF: Regexp
+//CHECKSTYLE.OFF: MethodName
 public class DeadlineTest {
     @Test
     public void constructor_DoHomeworkByDate_correctToStringOutput() throws SigmaException {

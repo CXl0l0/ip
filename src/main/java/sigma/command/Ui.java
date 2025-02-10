@@ -11,8 +11,9 @@ import sigma.task.Task;
 import sigma.task.TaskList;
 import sigma.task.ToDo;
 
+//CHECKSTYLE.OFF: Regexp
 /**
- * Handles operations that are responsible for user interactions. 
+ * Handles operations that are responsible for user interactions.
  * An Ui object provide support to other classes that require
  * user's input or wants to provide feedbacks back to the user.
  */
@@ -23,6 +24,9 @@ public class Ui {
     private Scanner sc;
     private TaskList taskList;
 
+    /**
+     * Constructor of the Ui class.
+     */
     public Ui() {
         this.taskList = new TaskList();
         this.sc = new Scanner(System.in);
@@ -31,10 +35,9 @@ public class Ui {
     private void setName(String name) {
         this.name = name;
     }
-    
+
     /**
      * Returns the reply prefix for dialogues spoken by the chatbot.
-     *
      * @return The reply prefix 
      */
     public static String getReplyPrefix() {
@@ -73,7 +76,7 @@ public class Ui {
             System.out.println(replyPrefix + "Stop slacking and lock in.");
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
-                System.out.println((i + 1) + ". "+ task.toString());
+                System.out.println((i + 1) + ". " + task.toString());
             }
         }
         line();
@@ -81,7 +84,6 @@ public class Ui {
 
     /**
      * UI method of handling marking tasks.
-     * 
      * @param tokens The tokens of user input.
      */
     private void handleMark(String[] tokens) {
@@ -104,7 +106,8 @@ public class Ui {
                 line();
             } catch (IndexOutOfBoundsException e) {
                 line();
-                System.out.println(replyPrefix + "Enter a valid task number. There probably ain't even any tasks to mark you bum.");
+                System.out.println(replyPrefix + "Enter a valid task number. "
+                                    + "There probably ain't even any tasks to mark you bum.");
                 line();
             }
         }
@@ -113,7 +116,6 @@ public class Ui {
 
     /**
      * UI method of handling unmarking tasks.
-     * 
      * @param tokens The tokens of user input.
      */
     private void handleUnmark(String[] tokens) {
@@ -136,7 +138,8 @@ public class Ui {
                 line();
             } catch (IndexOutOfBoundsException e) {
                 line();
-                System.out.println(replyPrefix + "Enter a valid task number. There probably ain't even any tasks to unmark you bum.");
+                System.out.println(replyPrefix + "Enter a valid task number. " 
+                                    + "There probably ain't even any tasks to unmark you bum.");
                 line();
             }
         }
@@ -144,7 +147,6 @@ public class Ui {
 
     /**
      * UI method of handling adding ToDo tasks.
-     * 
      * @param tokens The tokens of user input.
      */
     private void handleAddToDo(String[] tokens) {
@@ -166,7 +168,6 @@ public class Ui {
 
     /**
      * UI method of handling adding Deadline tasks.
-     * 
      * @param tokens The tokens of user input.
      */
     private void handleAddDeadline(String[] tokens) {
@@ -191,7 +192,6 @@ public class Ui {
 
     /**
      * UI method of handling adding Event tasks.
-     * 
      * @param tokens The tokens of user input.
      */
     private void handleAddEvent(String[] tokens) {
@@ -216,7 +216,6 @@ public class Ui {
 
     /**
      * UI method of handling deleting tasks.
-     * 
      * @param tokens The tokens of user input.
      */
     private void handleDelete(String[] tokens) {
@@ -234,7 +233,8 @@ public class Ui {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(replyPrefix + "Which one do you want to delete exactly?");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(replyPrefix + "Enter a valid task number. There probably ain't even any tasks to delete you bum.");
+                System.out.println(replyPrefix + "Enter a valid task number. " 
+                                    + "There probably ain't even any tasks to delete you bum.");
             }
         }
 
@@ -243,7 +243,6 @@ public class Ui {
 
     /**
      * UI method of finding tasks.
-     * 
      * @param tokens The tokens of user input.
      */
     private void handleFind(String[] tokens) {
@@ -260,7 +259,7 @@ public class Ui {
                 System.out.println(replyPrefix + "These are probably what you're looking for.");
                 for (int i = 0; i < matchingTasks.size(); i++) {
                     Task task = matchingTasks.get(i);
-                    System.out.println((i + 1) + ". "+ task.toString());
+                    System.out.println((i + 1) + ". " + task.toString());
                 }
             }
             
@@ -282,51 +281,51 @@ public class Ui {
         String[] tokens = reply.split(" ");
         String command = tokens[0];
         switch (command) {
-            case "bye":
+        case "bye":
             exit();
             break;
             
-            case "list":
+        case "list":
             handleShowList();
             awaitReply();
             break;
             
-            case "mark":
+        case "mark":
             handleMark(tokens);
             awaitReply();
             break;
             
-            case "unmark": 
+        case "unmark": 
             handleUnmark(tokens);
             awaitReply();
             break;
             
-            case "todo": 
+        case "todo": 
             handleAddToDo(tokens);
             awaitReply();
             break;
             
-            case "deadline":
+        case "deadline":
             handleAddDeadline(tokens);
             awaitReply();
             break;
             
-            case "event": 
+        case "event": 
             handleAddEvent(tokens);
             awaitReply();
             break;
             
-            case "delete": 
+        case "delete": 
             handleDelete(tokens);
             awaitReply();
             break;
 
-            case "find": 
+        case "find": 
             handleFind(tokens);
             awaitReply();
             break;
             
-            default:
+        default:
             //Invalid or Unknown command
             line();
             System.out.println(replyPrefix + "I don't know what you're talking about.");
@@ -344,7 +343,11 @@ public class Ui {
     }
     
     //Misc
+    /**
+     * UI tool to print a line for graphic purpose.
+     */
     public static void line() {
-        System.out.println("--------------------------------------------------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------" 
+                            + "-------------------------------------------------------------------");
     }
 }

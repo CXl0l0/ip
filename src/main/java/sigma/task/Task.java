@@ -1,5 +1,6 @@
 package sigma.task;
 
+//CHECKSTYLE.OFF: Regexp
 /**
  * The parent class of ToDo, Deadline and Event tasks. Contains the basic
  * field of a task: name, type and completion state.
