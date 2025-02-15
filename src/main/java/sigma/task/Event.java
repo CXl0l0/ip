@@ -21,7 +21,7 @@ public class Event extends Task {
     private String endDate;
 
     /**
-     * Constructor of the Event object.
+     * Returns the Event object.
      *
      * @param taskName The name of the task.
      * @param startDate The starting date of the task.
@@ -51,9 +51,9 @@ public class Event extends Task {
     }
     
     /**
-     * Constructor of the Event object. Returns an Event object by 
-     * taking in 1 extra argument which indicates the marked/unmarked 
-     * state of the task. For internal use only (eg: Creating event objects
+     * Returns an Event object by taking in 1 extra argument 
+     * which indicates the marked/unmarked state of the task. 
+     * For internal use only (eg: Creating event objects
      * by reading data files).
      *
      * @param taskName The name of the task.
@@ -68,7 +68,7 @@ public class Event extends Task {
     }
 
     /**
-     * A getter method. Returns the starting date of the event object.
+     * Returns the starting date of the event object.
      *
      * @return The starting date of the event.
      */
@@ -77,7 +77,7 @@ public class Event extends Task {
     }
 
     /**
-     * A getter method. Returns the ending date of the event object.
+     * Returns the ending date of the event object.
      *
      * @return The ending date of the event.
      */

@@ -11,7 +11,7 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Constructor of Task objects.
+     * Returns Task objects.
      * 
      * @param taskName
      * @param taskType
@@ -23,9 +23,9 @@ public class Task {
     }
 
     /**
-     * Constructor of Task objects. Returns a Task object by taking
-     * in an additional argument 'isDone' which indicates the completion
-     * state of the task. For internal use (eg: Creating task objects
+     * Returns a Task object by taking in an additional argument 
+     * 'isDone' which indicates the completio state of the task. 
+     * For internal use (eg: Creating task objects
      * by reading the data files).
      * 
      * @param taskName
@@ -39,7 +39,7 @@ public class Task {
     }
 
     /**
-     * A getting method for the field taskName.
+     * Returns the field taskName.
      * 
      * @return The name of the task.
      */
@@ -48,7 +48,7 @@ public class Task {
     }
 
     /**
-     * A getting method for the field taskType.
+     * Returns the field taskType.
      * 
      * @return The type of the task.
      */
@@ -57,7 +57,7 @@ public class Task {
     }
 
     /**
-     * A getting method for the field isDone.
+     * Returns the field isDone.
      * 
      * @return The completion state of the task.
      */
@@ -66,7 +66,7 @@ public class Task {
     }
 
     /**
-     * A setter method for the field isDone.
+     * Sets the field isDone.
      * 
      * @param isDone The completion state of the task.
      */

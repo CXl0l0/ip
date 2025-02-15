@@ -65,29 +65,44 @@ public class Ui {
     }
     
     /**
-     * UI method of handling the user interface of showing the
-     * current list.
+     * Returns the response for handling the user 
+     * interface of showing the current list.
+     * 
+     * @return The string of the current list.
      */
-    private void handleShowList() {
+    private String handleShowList() {
+        String response = "";
+
         line();
         if (taskList.getSize() == 0) {
             System.out.println(replyPrefix + "The list is empty right now.");
+            response = "The list is empty right now.";
         } else {
             System.out.println(replyPrefix + "Stop slacking and lock in.");
+            response += "Stop slacking and lock in.\n";
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
                 System.out.println((i + 1) + ". " + task.toString());
+                response += (i + 1) + ". " + task.toString() + "\n";
             }
         }
         line();
+
+        return response;
     }
 
     /**
-     * UI method of handling marking tasks.
+     * Returns the response for marking tasks.
+     * 
      * @param tokens The tokens of user input.
+     * @return The string containing the response of marking a task.
      */
-    private void handleMark(String[] tokens) {
+    private String handleMark(String[] tokens) {
+        String response = "";
+
         if (tokens.length > 2) { //unknown elements after command
+            response = "I don't know what you're talking about.";
+
             line();
             System.out.println(replyPrefix + "I don't know what you're talking about.");
             line();
@@ -96,30 +111,50 @@ public class Ui {
                 int index = Parser.parseIndex(tokens);
                 taskList.markDone(index);
 
+                response += "Good job bro, keep the grind going!\n";
+                response += taskList.getTask(index - 1).toString();
+
                 line();
                 System.out.println("Good job bro, keep the grind going!");
                 System.out.println(taskList.getTask(index - 1));
                 line();
             } catch (ArrayIndexOutOfBoundsException e) {
+                response = "Which one do you want to mark exactly?";
+
                 line();
                 System.out.println(replyPrefix + "Which one do you want to mark exactly?");
                 line();
             } catch (IndexOutOfBoundsException e) {
+                response = "Enter a valid task number. "
+                            + "There probably ain't even any tasks to mark you bum.";
+
                 line();
                 System.out.println(replyPrefix + "Enter a valid task number. "
                                     + "There probably ain't even any tasks to mark you bum.");
                 line();
+            } catch (NumberFormatException e) {
+                response = "Huh?";
+
+                line();
+                System.out.println("Huh?");
+                line();
             }
         }
         
+        return response;
     }
 
     /**
-     * UI method of handling unmarking tasks.
+     * Returns the response for unmarking tasks.
+     * 
      * @param tokens The tokens of user input.
+     * @return The string containing the response of unmarking a task.
      */
-    private void handleUnmark(String[] tokens) {
+    private String handleUnmark(String[] tokens) {
+        String response = "";
         if (tokens.length > 2) { //unknown elements after command
+            response = "I don't know what you're talking about.";
+
             line();
             System.out.println(replyPrefix + "I don't know what you're talking about.");
             line();
@@ -128,49 +163,80 @@ public class Ui {
                 int index = Parser.parseIndex(tokens);
                 taskList.markUndone(index);
                 
+                response += "Come on bruh, focus!\n";
+                response += taskList.getTask(index - 1).toString();
+
                 line();
                 System.out.println("Come on bruh, focus!");
                 System.out.println(taskList.getTask(index - 1));
                 line();
             } catch (ArrayIndexOutOfBoundsException e) {
+                response = "Which one do you want to unmark exactly?";
+
                 line();
                 System.out.println(replyPrefix + "Which one do you want to unmark exactly?");
                 line();
             } catch (IndexOutOfBoundsException e) {
+                response = "Enter a valid task number. "
+                            + "There probably ain't even any tasks to unmark you bum.";
+
                 line();
                 System.out.println(replyPrefix + "Enter a valid task number. " 
                                     + "There probably ain't even any tasks to unmark you bum.");
                 line();
+            } catch (NumberFormatException e) {
+                response = "Huh?";
+
+                line();
+                System.out.println("Huh?");
+                line();
             }
         }
+
+        return response;
     }
 
     /**
-     * UI method of handling adding ToDo tasks.
+     * Returns the response for adding ToDo tasks.
+     * 
      * @param tokens The tokens of user input.
+     * @return The string of the response to adding a ToDo task.
      */
-    private void handleAddToDo(String[] tokens) {
+    private String handleAddToDo(String[] tokens) {
+        String response = "";
         line();
         
         String taskName = Parser.parseToDo(tokens);
         
         try {
             ToDo todo = taskList.addToDo(taskName);
+
+            response += "Aight, I will remember that for you.\n";
+            response += "added: " + todo.toString() + "\n";
+            response += "Now you have " + taskList.getSize() + " task(s) in the list!";
+
             System.out.println(replyPrefix + "Aight, I will remember that for you.");
             System.out.println("added: " + todo.toString());
             System.out.println("Now you have " + taskList.getSize() + " task(s) in the list!");
         } catch (NoTaskNameException e) {
             System.out.println(replyPrefix + e.getMessage());
+            response = e.getMessage();
         }
 
         line();
+
+        return response;
     }
 
     /**
-     * UI method of handling adding Deadline tasks.
+     * Returns the response for adding Deadline tasks.
+     * 
      * @param tokens The tokens of user input.
+     * @return The string of the response of adding a Deadline task.
      */
-    private void handleAddDeadline(String[] tokens) {
+    private String handleAddDeadline(String[] tokens) {
+        String response = "";
+
         line();
         
         String[] parsedInfos = Parser.parseDeadline(tokens);
@@ -179,22 +245,32 @@ public class Ui {
 
         try {
             Deadline deadline = taskList.addDeadline(taskName, date);
+
+            response += "Aight, I will remember that for you.\n";
+            response += "added: " + deadline.toString() + "\n";
+            response += "Now you have " + taskList.getSize() + " task(s) in the list!";
             
             System.out.println(replyPrefix + "Aight, I will remember that for you.");
             System.out.println("added: " + deadline.toString());
             System.out.println("Now you have " + taskList.getSize() + " task(s) in the list!");
         } catch (SigmaException e) {
+            response = e.getMessage();
             System.out.println(replyPrefix + e.getMessage());
         }
 
         line();
+
+        return response;
     }
 
     /**
-     * UI method of handling adding Event tasks.
+     * Returns the response for adding Event tasks.
+     * 
      * @param tokens The tokens of user input.
+     * @return The string of the response of adding an Event task.
      */
-    private void handleAddEvent(String[] tokens) {
+    private String handleAddEvent(String[] tokens) {
+        String response = "";
         line();
         
         try {
@@ -204,48 +280,77 @@ public class Ui {
             String endDate = parsedInfos[2];
 
             Event event = taskList.addEvent(taskName, startDate, endDate);
+
+            response += "Aight, I will remember that for you.\n";
+            response += "added: " + event.toString() + "\n";
+            response += "Now you have " + taskList.getSize() + " task(s) in the list!";
+
             System.out.println(replyPrefix + "Aight, I will remember that for you.");
             System.out.println("added: " + event.toString());
             System.out.println("Now you have " + taskList.getSize() + " task(s) in the list!");
         } catch (SigmaException e) {
+            response = e.getMessage();
             System.out.println(replyPrefix + e.getMessage());
         }
 
         line();
+
+        return response;
     }
 
     /**
-     * UI method of handling deleting tasks.
+     * Returns the response for deleting tasks.
+     * 
      * @param tokens The tokens of user input.
+     * @return The string of the response of deleting a task.
      */
-    private void handleDelete(String[] tokens) {
+    private String handleDelete(String[] tokens) {
+        String response = "";
         line();
 
         if (tokens.length > 2) { //unknown elements after command
+            response = "I don't know what you're talking about.";
             System.out.println(replyPrefix + "I don't know what you're talking about.");
         } else {
             try {
                 int index = Parser.parseIndex(tokens);
                 Task task = taskList.deleteTask(index);
+
+                response += "I've removed this for you bud.\n" + index + ". " + task.toString() + "\n";
+                response += "You've got " + taskList.getSize() + " task(s) left.";
                 
                 System.out.println("I've removed this for you bud.\n" + index + ". " + task.toString());
                 System.out.println("You've got " + taskList.getSize() + " task(s) left.");
             } catch (ArrayIndexOutOfBoundsException e) {
+                response = "Which one do you want to delete exactly?";
                 System.out.println(replyPrefix + "Which one do you want to delete exactly?");
             } catch (IndexOutOfBoundsException e) {
+                response = "Enter a valid task number. "
+                            + "There probably ain't even any tasks to delete you bum.";
                 System.out.println(replyPrefix + "Enter a valid task number. " 
                                     + "There probably ain't even any tasks to delete you bum.");
+            } catch (NumberFormatException e) {
+                response = "Huh? There's no such task yo.";
+
+                line();
+                System.out.println("Huh? There's no such task yo.");
+                line();
             }
         }
 
         line();
+
+        return response;
     }
 
     /**
-     * UI method of finding tasks.
+     * Returns the response for finding tasks.
+     * 
      * @param tokens The tokens of user input.
+     * @return The string of the response of finding tasks.
      */
-    private void handleFind(String[] tokens) {
+    private String handleFind(String[] tokens) {
+        String response = "";
         line();
 
         try {
@@ -254,24 +359,30 @@ public class Ui {
             ArrayList<Task> matchingTasks = taskList.find(keyword);
 
             if (matchingTasks.size() == 0) {
+                response = "Unable to find any tasks matching the description.";
                 System.out.println(replyPrefix + "Unable to find any tasks matching the description.");
             } else {
                 System.out.println(replyPrefix + "These are probably what you're looking for.");
+                response += "These are probably what you're looking for.\n";
                 for (int i = 0; i < matchingTasks.size(); i++) {
                     Task task = matchingTasks.get(i);
+                    response += (i + 1) + ". " + task.toString() + "\n";
                     System.out.println((i + 1) + ". " + task.toString());
                 }
             }
             
         } catch (StringIndexOutOfBoundsException e) {
+            response = "What are you even finding yo?";
             System.out.println(replyPrefix + "What are you even finding yo?");
         }
 
         line();
+
+        return response;
     }
 
     /**
-     * Main function that handles the interpretation of user's input.
+     * Handles the interpretation of user's input.
      * Awaits reply from the user to proceed to the next actions requested by the user.
      */
     public void awaitReply() {
@@ -333,7 +444,103 @@ public class Ui {
             awaitReply();
         }
     }
+
+    /**
+     * Handles the interpretation of user's input through GUI.
+     * Returns the response from Sigma after processing the input.
+     * 
+     * @param input The input from user.
+     * @return The response from user input into the GUI.
+     */
+    public String generateResponse(String input) {
+        String response = "";
+        //Token reading solution below inspired by https://www.youtube.com/watch?v=lGHlFaF0F44
+        String[] tokens = input.split(" ");
+        String command = tokens[0];
+        switch (command) {
+        case "bye":
+            exit();
+            break;
+            
+        case "list":
+            response = handleShowList();
+            break;
+            
+        case "mark":
+            response = handleMark(tokens);
+            break;
+            
+        case "unmark": 
+            response = handleUnmark(tokens);
+            break;
+            
+        case "todo": 
+            response = handleAddToDo(tokens);
+            break;
+            
+        case "deadline":
+            response = handleAddDeadline(tokens);
+            break;
+            
+        case "event": 
+            response = handleAddEvent(tokens);
+            break;
+            
+        case "delete": 
+            response = handleDelete(tokens);
+            break;
+
+        case "find": 
+            response = handleFind(tokens);
+            break;
+            
+        default:
+            //Invalid or Unknown command
+            response = "I don't know what you're talking about.";
+        }
+
+        return response;
+    }
     
+    /**
+     * Returns the command type of the input.
+     * 
+     * @param input The input from user.
+     * @return The command type.
+     */
+    public String identifyCommandType(String input) {
+        String commandType = "";
+        //Token reading solution below inspired by https://www.youtube.com/watch?v=lGHlFaF0F44
+        String[] tokens = input.split(" ");
+        String command = tokens[0];
+        switch (command) {
+        case "mark":
+        case "unmark":
+            commandType = "ChangeMarkCommand";
+            break;
+            
+        case "todo": 
+        case "deadline":
+        case "event": 
+            commandType = "AddCommand";
+            break;
+            
+        case "delete": 
+            commandType = "DeleteCommand";
+            break;
+
+        case "find": 
+            commandType = "FindCommand";
+            break;
+            
+        default:
+            //Invalid or Other commands
+            commandType = "N/A";
+        }
+
+        return commandType;
+    }
+
     /**
      * Starts the chatbot by greeting and awaiting the next reply (command) from user.
      */

@@ -10,7 +10,7 @@ import sigma.exception.NoTaskNameException;
 public class ToDo extends Task {
     
     /**
-     * Constructor of ToDo object.
+     * Returns ToDo object.
      * 
      * @param taskName The name of the task.
      * @throws NoTaskNameException If there is missing input of task's name.
@@ -23,9 +23,9 @@ public class ToDo extends Task {
     }
 
     /**
-     * Constructor of ToDo object. Returns a ToDo object by 
-     * taking in 1 extra argument which indicates the marked/unmarked 
-     * state of the task. For internal use only (eg: Creating event objects
+     * Returns a ToDo object by taking in 1 extra argument 
+     * which indicates the marked/unmarked state of the task. 
+     * For internal use only (eg: Creating event objects
      * by reading data files).
      * 
      * @param taskName The name of the task.
