@@ -22,6 +22,8 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setSigma(sigma);  // inject the Sigma instance
             stage.show();

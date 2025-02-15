@@ -45,9 +45,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = sigma.getResponse(input);
+        String commandType = sigma.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getSigmaDialog(response, sigmaImage)
+                DialogBox.getSigmaDialog(response, sigmaImage, commandType)
         );
         userInput.clear();
     }

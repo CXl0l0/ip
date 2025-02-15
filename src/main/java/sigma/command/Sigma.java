@@ -7,6 +7,8 @@ package sigma.command;
  */
 public class Sigma {
     private Ui ui;
+    private String commandType;
+
     /**
      * Constructor of Sigma object.
      */
@@ -23,9 +25,16 @@ public class Sigma {
 
     /**
      * Generates a response for the user's chat message.
+     * 
+     * @return The string for the response from Sigma.
      */
     public String getResponse(String input) {
+        this.commandType = ui.identifyCommandType(input);
         return ui.generateResponse(input);
+    }
+
+    public String getCommandType() {
+        return this.commandType;
     }
 
     public static void main(String[] args) {

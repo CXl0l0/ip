@@ -449,6 +449,7 @@ public class Ui {
      * Handles the interpretation of user's input through GUI.
      * Returns the response from Sigma after processing the input.
      * 
+     * @param input The input from user.
      * @return The response from user input into the GUI.
      */
     public String generateResponse(String input) {
@@ -501,6 +502,45 @@ public class Ui {
         return response;
     }
     
+    /**
+     * Returns the command type of the input.
+     * 
+     * @param input The input from user.
+     * @return The command type.
+     */
+    public String identifyCommandType(String input) {
+        String commandType = "";
+        //Token reading solution below inspired by https://www.youtube.com/watch?v=lGHlFaF0F44
+        String[] tokens = input.split(" ");
+        String command = tokens[0];
+        switch (command) {
+        case "mark":
+        case "unmark":
+            commandType = "ChangeMarkCommand";
+            break;
+            
+        case "todo": 
+        case "deadline":
+        case "event": 
+            commandType = "AddCommand";
+            break;
+            
+        case "delete": 
+            commandType = "DeleteCommand";
+            break;
+
+        case "find": 
+            commandType = "FindCommand";
+            break;
+            
+        default:
+            //Invalid or Other commands
+            commandType = "N/A";
+        }
+
+        return commandType;
+    }
+
     /**
      * Starts the chatbot by greeting and awaiting the next reply (command) from user.
      */
