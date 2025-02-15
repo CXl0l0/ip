@@ -25,7 +25,7 @@ public class Sigma {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Sigma heard: " + input;
+        return ui.generateResponse(input);
     }
 
     public static void main(String[] args) {

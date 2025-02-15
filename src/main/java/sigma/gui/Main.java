@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import sigma.command.Sigma;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Sigma using FXML.
  */
 public class Main extends Application {
 
