@@ -15,7 +15,7 @@ public class Sigma {
     }
 
     /**
-     * Function to start the chatbot.
+     * Starts the chatbot.
      */
     private void launch() {
         ui.start();

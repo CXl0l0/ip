@@ -19,7 +19,7 @@ public class Deadline extends Task {
     private String by;
 
     /**
-     * Constructor of the Deadline object.
+     * Returns a Deadline object.
      *
      * @param taskName The name of the task.
      * @param date The deadline of the task.
@@ -47,9 +47,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructor of the Deadline object. Returns a Deadline object by 
-     * taking in an extra argument which indicates the marked/unmarked 
-     * state of the task. For internal use only (eg: Creating deadline objects
+     * Returns a Deadline object by taking in an extra argument 
+     * which indicates the marked/unmarked state of the task. 
+     * For internal use only (eg: Creating deadline objects
      * by reading data files).
      *
      * @param taskName The name of the task.
@@ -62,8 +62,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * A getter method for the field by. Returns the deadline date
-     * of this deadline object.
+     * Returns the deadline date of this deadline object.
      *
      * @return The deadline date.
      */

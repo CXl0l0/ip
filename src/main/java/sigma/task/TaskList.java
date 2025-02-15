@@ -29,7 +29,7 @@ public class TaskList {
     }
 
     /**
-     * A getter method for getting the list of tasks recorded by this object.
+     * Returns the list of tasks recorded by this object.
      * 
      * @return An array list of Tasks.
      */
@@ -38,7 +38,7 @@ public class TaskList {
     }
 
     /**
-     * A getter method for getting the task in the list based on the index.
+     * Returns the task in the list based on the index.
      * 
      * @param i The index of the task requested.
      * @return Task object requested.
@@ -48,7 +48,7 @@ public class TaskList {
     }
 
     /**
-     * A getter method for getting the list's current size.
+     * Returns the list's current size.
      * 
      * @return The number of tasks in the list.
      */
@@ -57,7 +57,7 @@ public class TaskList {
     }
     
     /**
-     * Add the indicated To Do task into TaskList. 
+     * Adds the indicated To Do task into TaskList. 
      * 
      * @param taskName The name of the task.
      * @return The ToDo task created.
@@ -75,7 +75,7 @@ public class TaskList {
     }
     
     /**
-     * Add the indicated Deadline task into TaskList. 
+     * Adds the indicated Deadline task into TaskList. 
      * 
      * @param taskName The name of the task.
      * @param date The deadline date of the task.
@@ -94,7 +94,7 @@ public class TaskList {
     }
     
     /**
-     * Add the indicated Event task into TaskList. 
+     * Adds the indicated Event task into TaskList. 
      * 
      * @param taskName The name of the task.
      * @param from The starting date of the event.
@@ -114,7 +114,7 @@ public class TaskList {
     }
     
     /**
-     * Mark the indicated task according 
+     * Marks the indicated task according 
      * to the index in TaskList as done.
      * 
      * @param i The index of the task to be marked.
@@ -132,7 +132,7 @@ public class TaskList {
     }
     
     /**
-     * Mark the indicated task according 
+     * Marks the indicated task according 
      * to the index in TaskList as not done.
      * 
      * @param i The index of the task to be unmarked.
@@ -150,7 +150,7 @@ public class TaskList {
     }
     
     /**
-     * Delete the indicated task according 
+     * Deletes the indicated task according 
      * to the index in TaskList.
      * 
      * @param i The index of the task to be deleted.
@@ -169,7 +169,7 @@ public class TaskList {
     }
 
     /**
-     * Find tasks in TaskList that fits the keyword
+     * Finds tasks in TaskList that fits the keyword
      * inputted by the user.
      * 
      * @param finalKeyword The keyword to search in the task list.

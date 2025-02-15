@@ -65,8 +65,8 @@ public class Ui {
     }
     
     /**
-     * UI method of handling the user interface of showing the
-     * current list.
+     * Returns the response for handling the user 
+     * interface of showing the current list.
      * 
      * @return The string of the current list.
      */
@@ -92,7 +92,8 @@ public class Ui {
     }
 
     /**
-     * UI method of handling marking tasks.
+     * Returns the response for marking tasks.
+     * 
      * @param tokens The tokens of user input.
      * @return The string containing the response of marking a task.
      */
@@ -144,7 +145,8 @@ public class Ui {
     }
 
     /**
-     * UI method of handling unmarking tasks.
+     * Returns the response for unmarking tasks.
+     * 
      * @param tokens The tokens of user input.
      * @return The string containing the response of unmarking a task.
      */
@@ -195,7 +197,8 @@ public class Ui {
     }
 
     /**
-     * UI method of handling adding ToDo tasks.
+     * Returns the response for adding ToDo tasks.
+     * 
      * @param tokens The tokens of user input.
      * @return The string of the response to adding a ToDo task.
      */
@@ -226,7 +229,8 @@ public class Ui {
     }
 
     /**
-     * UI method of handling adding Deadline tasks.
+     * Returns the response for adding Deadline tasks.
+     * 
      * @param tokens The tokens of user input.
      * @return The string of the response of adding a Deadline task.
      */
@@ -260,7 +264,8 @@ public class Ui {
     }
 
     /**
-     * UI method of handling adding Event tasks.
+     * Returns the response for adding Event tasks.
+     * 
      * @param tokens The tokens of user input.
      * @return The string of the response of adding an Event task.
      */
@@ -294,7 +299,8 @@ public class Ui {
     }
 
     /**
-     * UI method of handling deleting tasks.
+     * Returns the response for deleting tasks.
+     * 
      * @param tokens The tokens of user input.
      * @return The string of the response of deleting a task.
      */
@@ -338,7 +344,8 @@ public class Ui {
     }
 
     /**
-     * UI method of finding tasks.
+     * Returns the response for finding tasks.
+     * 
      * @param tokens The tokens of user input.
      * @return The string of the response of finding tasks.
      */
@@ -375,7 +382,7 @@ public class Ui {
     }
 
     /**
-     * Main function that handles the interpretation of user's input.
+     * Handles the interpretation of user's input.
      * Awaits reply from the user to proceed to the next actions requested by the user.
      */
     public void awaitReply() {
@@ -439,7 +446,7 @@ public class Ui {
     }
 
     /**
-     * Main function that handles the interpretation of user's input through GUI.
+     * Handles the interpretation of user's input through GUI.
      * Returns the response from Sigma after processing the input.
      * 
      * @return The response from user input into the GUI.
