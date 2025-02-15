@@ -1,10 +1,9 @@
 .root {
-  main-color: rgb(
-    237,
-    255,
-    242
-  ); /* Create a looked-up color called "main-color" within root. */
+  main-color: rgb(237, 255, 242);
   -fx-background-color: main-color;
+  -fx-background-image: url("../images/background.jpg"); /* Set image */
+  -fx-background-size: cover;
+  -fx-background-size: stretch;
 }
 
 .text-field {
@@ -27,7 +26,10 @@
   -fx-font-size: 20px;
 }
 
-.scroll-pane,
+.scroll-pane {
+  -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
 .scroll-pane .viewport {
   -fx-background-color: transparent;
 }
