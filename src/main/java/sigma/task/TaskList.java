@@ -2,7 +2,6 @@ package sigma.task;
 
 import java.util.ArrayList;
 
-import sigma.command.Ui;
 import sigma.exception.NoTaskNameException;
 import sigma.exception.SigmaException;
 import sigma.storage.Storage;
@@ -16,7 +15,6 @@ import sigma.storage.Storage;
 public class TaskList {
     private ArrayList<Task> list;
     private Storage store;
-    private String replyPrefix;
 
     /**
      * Constructor of TaskList object. Intialized
@@ -25,7 +23,6 @@ public class TaskList {
     public TaskList() {
         this.store = new Storage();
         this.list = store.readTasks();
-        this.replyPrefix = Ui.getReplyPrefix();
     }
 
     /**

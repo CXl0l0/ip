@@ -22,28 +22,39 @@ public class Deadline extends Task {
      * Returns a Deadline object.
      *
      * @param taskName The name of the task.
-     * @param date The deadline of the task.
+     * @param deadline The deadline of the task.
      * @return Deadline object.
      * @throws SigmaException If there are missing information or wrong date format.
      */
-    public Deadline(String taskName, String date) throws SigmaException {
+    public Deadline(String taskName, String deadline) throws SigmaException {
         super(taskName, "D");
+        checkInputValidity(taskName, deadline);
+        this.by = deadline;
+    }
+
+    /**
+     * Checks the validity of the input of user for
+     * taskName and the date for deadline.
+     * 
+     * @param taskName The name of the task.
+     * @param deadline The deadline of the task.
+     * @throws SigmaException If there are missing information or wrong date format.
+     */
+    private void checkInputValidity(String taskName, String deadline) throws SigmaException {
         if (taskName.equals("")) {
             throw new NoTaskNameException();
         }
 
-        if (date.equals("")) {
+        if (deadline.equals("")) {
             throw new NoDeadlineException();
         }
-        
+
         //To check if entered date and time is in the correct format
         try {
-            LocalDateTime.parse(date.substring(1), FORMATTER);
+            LocalDateTime.parse(deadline.substring(1), FORMATTER);
         } catch (DateTimeException e) {
             throw new WrongDateTimeFormatException();
         }
-
-        this.by = date;
     }
 
     /**
