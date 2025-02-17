@@ -176,6 +176,8 @@ public class TaskList {
      * @return The array list of matching tasks.
      */
     public ArrayList<Task> find(String finalKeyword) {
+        assert finalKeyword != null;
+        assert finalKeyword != "";
         ArrayList<Task> matchingTasks = (ArrayList<Task>) list.clone();
         matchingTasks.removeIf((task) -> !task.getTaskName().contains(finalKeyword));
         return matchingTasks;
