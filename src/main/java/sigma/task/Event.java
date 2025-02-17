@@ -30,6 +30,21 @@ public class Event extends Task {
      */
     public Event(String taskName, String startDate, String endDate) throws SigmaException {
         super(taskName, "E");
+        checkValidity(taskName, startDate, endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /**
+     * Checks the validity of the input of user for
+     * taskName, event's start date and end date.
+     *  
+     * @param taskName The name of the task.
+     * @param startDate The starting date of the task.
+     * @param endDate The ending date of the task.
+     * @throws SigmaException If there are missing information or wrong date format.
+     */
+    private void checkValidity(String taskName, String startDate, String endDate) throws SigmaException {
         if (taskName.equals("")) {
             throw new NoTaskNameException();
         }
@@ -45,9 +60,6 @@ public class Event extends Task {
         } catch (DateTimeException e) {
             throw new WrongDateTimeFormatException();
         }
-        
-        this.startDate = startDate;
-        this.endDate = endDate;
     }
     
     /**

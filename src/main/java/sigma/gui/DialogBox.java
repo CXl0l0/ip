@@ -26,16 +26,20 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
+            setFXMLLoader();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         dialog.setText(text);
         displayPicture.setImage(img);
+    }
+
+    private void setFXMLLoader() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+        fxmlLoader.setController(this);
+        fxmlLoader.setRoot(this);
+        fxmlLoader.load();
     }
 
     /**
@@ -62,6 +66,7 @@ public class DialogBox extends HBox {
             break;
         case "FindCommand":
             dialog.getStyleClass().add("find-label");
+            break;
         default:
             // Do nothing
         }

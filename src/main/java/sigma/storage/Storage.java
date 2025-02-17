@@ -61,15 +61,12 @@ public class Storage {
                     break;
                 }
 
-
-    
                 if (i < list.size() - 1) { 
                     //Don't write a new line for the last list
                     fw.write("\n");
                 }
             }
     
-            //Close file writer
             fw.close();
 
         } catch (IOException e) {

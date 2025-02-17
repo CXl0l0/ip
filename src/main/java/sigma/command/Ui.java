@@ -151,46 +151,46 @@ public class Ui {
      * @return The string containing the response of unmarking a task.
      */
     private String handleUnmark(String[] tokens) {
-        String response = "";
         if (tokens.length > 2) { //unknown elements after command
-            response = "I don't know what you're talking about.";
-
             line();
             System.out.println(replyPrefix + "I don't know what you're talking about.");
             line();
-        } else {
-            try {
-                int index = Parser.parseIndex(tokens);
-                taskList.markUndone(index);
-                
-                response += "Come on bruh, focus!\n";
-                response += taskList.getTask(index - 1).toString();
+            
+            return "I don't know what you're talking about.";
+        }
+        
+        String response = "";
+        try {
+            int index = Parser.parseIndex(tokens);
+            taskList.markUndone(index);
+            
+            response += "Come on bruh, focus!\n";
+            response += taskList.getTask(index - 1).toString();
 
-                line();
-                System.out.println("Come on bruh, focus!");
-                System.out.println(taskList.getTask(index - 1));
-                line();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                response = "Which one do you want to unmark exactly?";
+            line();
+            System.out.println("Come on bruh, focus!");
+            System.out.println(taskList.getTask(index - 1));
+            line();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            response = "Which one do you want to unmark exactly?";
 
-                line();
-                System.out.println(replyPrefix + "Which one do you want to unmark exactly?");
-                line();
-            } catch (IndexOutOfBoundsException e) {
-                response = "Enter a valid task number. "
-                            + "There probably ain't even any tasks to unmark you bum.";
+            line();
+            System.out.println(replyPrefix + "Which one do you want to unmark exactly?");
+            line();
+        } catch (IndexOutOfBoundsException e) {
+            response = "Enter a valid task number. "
+                        + "There probably ain't even any tasks to unmark you bum.";
 
-                line();
-                System.out.println(replyPrefix + "Enter a valid task number. " 
-                                    + "There probably ain't even any tasks to unmark you bum.");
-                line();
-            } catch (NumberFormatException e) {
-                response = "Huh?";
+            line();
+            System.out.println(replyPrefix + "Enter a valid task number. " 
+                                + "There probably ain't even any tasks to unmark you bum.");
+            line();
+        } catch (NumberFormatException e) {
+            response = "Huh?";
 
-                line();
-                System.out.println("Huh?");
-                line();
-            }
+            line();
+            System.out.println("Huh?");
+            line();
         }
 
         return response;
@@ -305,37 +305,35 @@ public class Ui {
      * @return The string of the response of deleting a task.
      */
     private String handleDelete(String[] tokens) {
-        String response = "";
         line();
-
+        
         if (tokens.length > 2) { //unknown elements after command
-            response = "I don't know what you're talking about.";
             System.out.println(replyPrefix + "I don't know what you're talking about.");
-        } else {
-            try {
-                int index = Parser.parseIndex(tokens);
-                Task task = taskList.deleteTask(index);
+            line();
+            return "I don't know what you're talking about.";
+        }
+        
+        String response = "";
+        try {
+            int index = Parser.parseIndex(tokens);
+            Task task = taskList.deleteTask(index);
 
-                response += "I've removed this for you bud.\n" + index + ". " + task.toString() + "\n";
-                response += "You've got " + taskList.getSize() + " task(s) left.";
-                
-                System.out.println("I've removed this for you bud.\n" + index + ". " + task.toString());
-                System.out.println("You've got " + taskList.getSize() + " task(s) left.");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                response = "Which one do you want to delete exactly?";
-                System.out.println(replyPrefix + "Which one do you want to delete exactly?");
-            } catch (IndexOutOfBoundsException e) {
-                response = "Enter a valid task number. "
-                            + "There probably ain't even any tasks to delete you bum.";
-                System.out.println(replyPrefix + "Enter a valid task number. " 
-                                    + "There probably ain't even any tasks to delete you bum.");
-            } catch (NumberFormatException e) {
-                response = "Huh? There's no such task yo.";
-
-                line();
-                System.out.println("Huh? There's no such task yo.");
-                line();
-            }
+            response += "I've removed this for you bud.\n" + index + ". " + task.toString() + "\n";
+            response += "You've got " + taskList.getSize() + " task(s) left.";
+            
+            System.out.println("I've removed this for you bud.\n" + index + ". " + task.toString());
+            System.out.println("You've got " + taskList.getSize() + " task(s) left.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            response = "Which one do you want to delete exactly?";
+            System.out.println(replyPrefix + "Which one do you want to delete exactly?");
+        } catch (IndexOutOfBoundsException e) {
+            response = "Enter a valid task number. "
+                        + "There probably ain't even any tasks to delete you bum.";
+            System.out.println(replyPrefix + "Enter a valid task number. " 
+                                + "There probably ain't even any tasks to delete you bum.");
+        } catch (NumberFormatException e) {
+            response = "Huh? There's no such task yo.";
+            System.out.println("Huh? There's no such task yo.");
         }
 
         line();
