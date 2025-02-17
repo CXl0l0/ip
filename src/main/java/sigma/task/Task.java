@@ -44,6 +44,7 @@ public class Task {
      * @return The name of the task.
      */
     public String getTaskName() {
+        assert taskName != "";
         return this.taskName;
     }
 
@@ -53,6 +54,7 @@ public class Task {
      * @return The type of the task.
      */
     public String getTaskType() {
+        assert taskType != "";
         return this.taskType;
     }
 

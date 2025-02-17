@@ -87,6 +87,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
+        assert startDate != null;
+        assert endDate != null;
         LocalDateTime dateTimeStartDate = LocalDateTime.parse(this.startDate.substring(1), FORMATTER);
         LocalDateTime dateTimeEndDate = LocalDateTime.parse(this.endDate.substring(1), FORMATTER);
         String dateTimeStartDateString = dateTimeStartDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
