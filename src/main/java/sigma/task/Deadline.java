@@ -83,6 +83,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+        assert by != null;
         LocalDateTime dateTime = LocalDateTime.parse(this.by.substring(1), FORMATTER);
         String dateTimeString = dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
         return "[D]" + "[" + (this.getIsDone() ? "X" : " ") + "]" 

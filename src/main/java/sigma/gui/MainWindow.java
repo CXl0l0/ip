@@ -46,6 +46,10 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = sigma.getResponse(input);
         String commandType = sigma.getCommandType();
+
+        assert userImage != null;
+        assert sigmaImage != null;
+        
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSigmaDialog(response, sigmaImage, commandType)
