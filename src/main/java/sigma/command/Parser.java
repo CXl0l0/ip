@@ -3,6 +3,7 @@ package sigma.command;
 //CHECKSTYLE.OFF: Regexp
 
 import sigma.exception.NoNewDeadlineInfoException;
+import sigma.exception.NoNewEventInfoException;
 import sigma.exception.NoNewNameException;
 import sigma.exception.SigmaException;
 
@@ -123,6 +124,7 @@ public class Parser {
      * @param tokens The tokens of string to be interpreted.
      * @param taskType The task type of the target task.
      * @return The parsed information as an array of String.
+     * @throws SigmaException If there are missing information from the user input.
      */
     public static String[] parseEdit(String[] tokens, String taskType) throws SigmaException {
         assert taskType != null;
@@ -164,7 +166,7 @@ public class Parser {
         String newTaskName = "";
         String newDeadline = "";
 
-        if (tokens.length < 4 || !tokens[2].equals("/name") && !tokens[2].equals("/by")) {
+        if (tokens.length < 3 || !tokens[2].equals("/name") && !tokens[2].equals("/by")) {
             throw new NoNewDeadlineInfoException();
         }
 
@@ -190,10 +192,62 @@ public class Parser {
         newInfos[0] = newTaskName;
         newInfos[1] = newDeadline;
 
+        if (newTaskName == "" && newDeadline == "") {
+            throw new NoNewDeadlineInfoException();
+        }
+
         return newInfos;
     }
 
-    private static String[] parseEditEvent(String[] tokens) {
-        return null;   
+    private static String[] parseEditEvent(String[] tokens) throws NoNewEventInfoException {
+        String[] newInfos = new String[3];
+        String newTaskName = "";
+        String newStartDate = "";
+        String newEndDate = "";
+
+        if (tokens.length < 3 || !tokens[2].equals("/name") 
+            && !tokens[2].equals("/from") 
+            && !tokens[2].equals("/to")) {
+            throw new NoNewEventInfoException();
+        }
+
+        boolean isReadingNewTaskName = false;
+        boolean isReadingFrom = false;
+        boolean isReadingTo = false;
+        for (int i = 2; i < tokens.length; i++) {
+            String str = tokens[i];
+            if (str.equals("/name")) {
+                isReadingNewTaskName = true;
+                isReadingFrom = false;
+                isReadingTo = false;
+                continue;
+            } else if (str.equals("/from")) {
+                isReadingNewTaskName = false;
+                isReadingFrom = true;
+                isReadingTo = false;
+                continue;
+            } else if (str.equals("/to")) {
+                isReadingNewTaskName = false;
+                isReadingFrom = false;
+                isReadingTo = true;
+                continue;
+            } else if (isReadingNewTaskName) {
+                newTaskName += " " + str;
+            } else if (isReadingFrom) {
+                newStartDate += " " + str;
+            } else if (isReadingTo) {
+                newEndDate += " " + str;
+            }
+        }
+
+        if (newTaskName == "" && newStartDate == "" && newEndDate == "") {
+            throw new NoNewEventInfoException();
+        }
+
+        newInfos[0] = newTaskName;
+        newInfos[1] = newStartDate;
+        newInfos[2] = newEndDate;
+
+        return newInfos;   
     }
 }

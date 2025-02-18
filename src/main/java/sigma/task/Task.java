@@ -48,6 +48,11 @@ public class Task {
         return this.taskName;
     }
 
+    /**
+     * Sets the new task name.
+     * 
+     * @param taskName The new task name.
+     */
     public void setTaskName(String taskName) {
         if (!taskName.equals("")) {
             this.taskName = taskName;

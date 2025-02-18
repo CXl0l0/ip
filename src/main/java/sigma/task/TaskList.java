@@ -205,8 +205,23 @@ public class TaskList {
                 deadline.setBy(newDeadline);
                 break;
             }
-            case "E":
+
+            case "E": {
+                String newTaskName = parsedInfos[0];
+                String newStartDate = parsedInfos[1];
+                String newEndDate = parsedInfos[2];
+                Event event = (Event) task;
+
+                if (!newStartDate.equals("") && !newEndDate.equals("")) {
+                    Event.checkDateValidity(newStartDate, newEndDate);
+                }
+
+                event.setTaskName(newTaskName);
+                event.setStartDate(newStartDate);
+                event.setEndDate(newEndDate);
                 break;
+            }
+
             default:
                 assert taskType == "T" 
                 || taskType == "D"

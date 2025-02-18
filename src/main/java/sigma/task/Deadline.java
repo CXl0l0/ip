@@ -81,6 +81,12 @@ public class Deadline extends Task {
         return this.by;
     }
 
+    /**
+     * Sets the new deadline date.
+     * 
+     * @param date The new deadline date.
+     * @throws WrongDateTimeFormatException If the date isn't in the correct format.
+     */
     public void setBy(String date) throws WrongDateTimeFormatException {
         if (!date.equals("")) {
             //To check if entered date and time is in the correct format
