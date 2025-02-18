@@ -179,4 +179,40 @@ public class TaskList {
         matchingTasks.removeIf((task) -> !task.getTaskName().contains(finalKeyword));
         return matchingTasks;
     }
+
+    /**
+     * Edits task in TaskList according to the parsed information
+     * specified by the user.
+     * 
+     * @param task The task to be edited.
+     * @param parsedInfos The new informations for the edition.
+     * @throws SigmaException If there are user input errors.
+     */
+    public void editTask(Task task, String[] parsedInfos) throws SigmaException {
+        String taskType = task.getTaskType();
+        switch (taskType) {
+            case "T": {
+                String newTaskName = parsedInfos[0];
+                task.setTaskName(newTaskName);
+                break;
+            }
+
+            case "D": {
+                String newTaskName = parsedInfos[0];
+                String newDeadline = parsedInfos[1];
+                Deadline deadline = (Deadline) task;
+                deadline.setTaskName(newTaskName);
+                deadline.setBy(newDeadline);
+                break;
+            }
+            case "E":
+                break;
+            default:
+                assert taskType == "T" 
+                || taskType == "D"
+                || taskType == "E";
+            }
+
+        store.writeTasks(list);
+    }
 }

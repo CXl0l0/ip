@@ -81,6 +81,19 @@ public class Deadline extends Task {
         return this.by;
     }
 
+    public void setBy(String date) throws WrongDateTimeFormatException {
+        if (!date.equals("")) {
+            //To check if entered date and time is in the correct format
+            try {
+                LocalDateTime.parse(date.substring(1), FORMATTER);
+            } catch (DateTimeException e) {
+                throw new WrongDateTimeFormatException();
+            }
+
+            this.by = date;
+        }
+    }
+
     @Override
     public String toString() {
         assert by != null;

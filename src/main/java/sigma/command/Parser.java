@@ -2,6 +2,7 @@ package sigma.command;
 
 //CHECKSTYLE.OFF: Regexp
 
+import sigma.exception.NoNewDeadlineInfoException;
 import sigma.exception.NoNewNameException;
 import sigma.exception.SigmaException;
 
@@ -154,12 +155,42 @@ public class Parser {
             newTaskName += " " + tokens[i];
         }
 
-        newInfos[0] = newTaskName.substring(1);
+        newInfos[0] = newTaskName;
         return newInfos;
     }
 
-    private static String[] parseEditDeadline(String[] tokens) {
-        return null;
+    private static String[] parseEditDeadline(String[] tokens) throws NoNewDeadlineInfoException {
+        String[] newInfos = new String[2];
+        String newTaskName = "";
+        String newDeadline = "";
+
+        if (tokens.length < 4 || !tokens[2].equals("/name") && !tokens[2].equals("/by")) {
+            throw new NoNewDeadlineInfoException();
+        }
+
+        boolean isReadingNewTaskName = false;
+        boolean isReadingNewDeadline = false;
+        for (int i = 2; i < tokens.length; i++) {
+            String str = tokens[i];
+            if (str.equals("/name")) {
+                isReadingNewTaskName = true;
+                isReadingNewDeadline = false;
+                continue;
+            } else if (str.equals("/by")) {
+                isReadingNewTaskName = false;
+                isReadingNewDeadline = true;
+                continue;
+            } else if (isReadingNewTaskName) {
+                newTaskName += " " + str;
+            } else if (isReadingNewDeadline) {
+                newDeadline += " " + str;
+            }
+        }
+
+        newInfos[0] = newTaskName;
+        newInfos[1] = newDeadline;
+
+        return newInfos;
     }
 
     private static String[] parseEditEvent(String[] tokens) {

@@ -386,26 +386,10 @@ public class Ui {
             Task task = taskList.getTask(index - 1);
             String taskType = task.getTaskType();
             String[] parsedInfos = Parser.parseEdit(tokens, taskType);
-
-            switch (taskType) {
-            case "T":
-                String newTaskName = parsedInfos[0];
-                task.setTaskName(newTaskName);
+            taskList.editTask(task, parsedInfos);
                 
-                response += "Successfully edited task. The task has been changed to:\n";
-                response += task.toString();
-
-                break;
-
-            case "D":
-                break;
-            case "E":
-                break;
-            default:
-                assert taskType == "T" 
-                || taskType == "D"
-                || taskType == "E";
-            }
+            response += "Successfully edited task. The task has been changed to:\n";
+            response += task.toString();
 
         } catch (ArrayIndexOutOfBoundsException e) {
             return "Which task are you trying to edit yo? Enter the index after 'edit'.";

@@ -49,8 +49,9 @@ public class Task {
     }
 
     public void setTaskName(String taskName) {
-        assert taskName != "";
-        this.taskName = taskName;
+        if (!taskName.equals("")) {
+            this.taskName = taskName;
+        }
     }
 
     /**
