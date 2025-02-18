@@ -146,6 +146,14 @@ public class Parser {
         return null;
     }
 
+    
+    /**
+     * Parses the tokens for the command to edit ToDo tasks.
+     * 
+     * @param tokens The tokens of string to be interpreted.
+     * @return An array of strings containing the new task name.
+     * @throws NoNewNameException If there is no new name provided.
+     */
     private static String[] parseEditToDo(String[] tokens) throws NoNewNameException {
         String[] newInfos = new String[1];
         String newTaskName = "";
@@ -161,12 +169,19 @@ public class Parser {
         return newInfos;
     }
 
+    /**
+     * Parses the tokens for the command to edit Deadline tasks.
+     * 
+     * @param tokens The tokens of string to be interpreted.
+     * @return An array of strings containing the new task name and new deadline.
+     * @throws NoNewDeadlineInfoException If there is no new task name or deadline provided.
+     */
     private static String[] parseEditDeadline(String[] tokens) throws NoNewDeadlineInfoException {
         String[] newInfos = new String[2];
         String newTaskName = "";
         String newDeadline = "";
 
-        if (tokens.length < 3 || !tokens[2].equals("/name") && !tokens[2].equals("/by")) {
+        if (tokens.length < 3 || (!tokens[2].equals("/name") && !tokens[2].equals("/by"))) {
             throw new NoNewDeadlineInfoException();
         }
 
@@ -199,6 +214,13 @@ public class Parser {
         return newInfos;
     }
 
+    /**
+     * Parses the tokens for the command to edit Event tasks.
+     * 
+     * @param tokens The tokens of string to be interpreted.
+     * @return An array of strings containing the new task name, new start date, and new end date.
+     * @throws NoNewEventInfoException If there is no new task name, start date, or end date provided.
+     */
     private static String[] parseEditEvent(String[] tokens) throws NoNewEventInfoException {
         String[] newInfos = new String[3];
         String newTaskName = "";

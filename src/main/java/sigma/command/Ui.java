@@ -379,6 +379,12 @@ public class Ui {
         return response;
     }
 
+    /**
+     * Handles the editing of a task based on the provided tokens.
+     * 
+     * @param tokens An array of strings containing the command and its arguments.
+     * @return A response message indicating the result of the edit operation.
+     */
     private String handleEdit(String[] tokens) {
         String response = "";
         try {
