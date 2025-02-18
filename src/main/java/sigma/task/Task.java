@@ -49,6 +49,17 @@ public class Task {
     }
 
     /**
+     * Sets the new task name.
+     * 
+     * @param taskName The new task name.
+     */
+    public void setTaskName(String taskName) {
+        if (!taskName.equals("")) {
+            this.taskName = taskName;
+        }
+    }
+
+    /**
      * Returns the field taskType.
      * 
      * @return The type of the task.

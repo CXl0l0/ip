@@ -372,9 +372,38 @@ public class Ui {
         } catch (StringIndexOutOfBoundsException e) {
             response = "What are you even finding yo?";
             System.out.println(replyPrefix + "What are you even finding yo?");
-        }
+        } 
 
         line();
+
+        return response;
+    }
+
+    private String handleEdit(String[] tokens) {
+        String response = "";
+        try {
+            int index = Parser.parseIndex(tokens);
+            Task task = taskList.getTask(index - 1);
+            String taskType = task.getTaskType();
+            String[] parsedInfos = Parser.parseEdit(tokens, taskType);
+            taskList.editTask(task, parsedInfos);
+                
+            response += "Successfully edited task. The task has been changed to:\n";
+            response += task.toString();
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Which task are you trying to edit yo? Enter the index after 'edit'.";
+        } catch (IndexOutOfBoundsException e) {
+            response = "Enter a valid task number. "
+                        + "There probably ain't even any tasks to edit you bum.";
+            System.out.println(replyPrefix + "Enter a valid task number. " 
+                                + "There probably ain't even any tasks to edit you bum.");
+        } catch (NumberFormatException e) {
+            response = "Huh? There's no such task yo.";
+            System.out.println("Huh? There's no such task yo.");
+        } catch (SigmaException e) {
+            response = e.getMessage();
+        }
 
         return response;
     }
@@ -491,6 +520,10 @@ public class Ui {
         case "find": 
             response = handleFind(tokens);
             break;
+
+        case "edit":
+            response = handleEdit(tokens);
+            break;
             
         default:
             //Invalid or Unknown command
@@ -530,6 +563,9 @@ public class Ui {
         case "find": 
             commandType = "FindCommand";
             break;
+
+        case "edit":
+            commandType = "EditCommand";
             
         default:
             //Invalid or Other commands

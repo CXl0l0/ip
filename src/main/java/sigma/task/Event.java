@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import sigma.exception.InvalidEventPeriodException;
 import sigma.exception.NoEventTimeException;
 import sigma.exception.NoTaskNameException;
 import sigma.exception.SigmaException;
@@ -31,6 +32,7 @@ public class Event extends Task {
     public Event(String taskName, String startDate, String endDate) throws SigmaException {
         super(taskName, "E");
         checkValidity(taskName, startDate, endDate);
+        checkDateValidity(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -52,11 +54,16 @@ public class Event extends Task {
         if (startDate.equals("") || endDate.equals("")) {
             throw new NoEventTimeException();
         }
-        
+    }
+
+    public static void checkDateValidity(String startDate, String endDate) throws SigmaException {
         //To check if entered date and time is in the correct format
         try {
-            LocalDateTime.parse(startDate.substring(1), FORMATTER);
-            LocalDateTime.parse(endDate.substring(1), FORMATTER);
+            LocalDateTime ldt1 = LocalDateTime.parse(startDate.substring(1), FORMATTER);
+            LocalDateTime ldt2 = LocalDateTime.parse(endDate.substring(1), FORMATTER);
+            if (ldt1.compareTo(ldt2) > 0) {
+                throw new InvalidEventPeriodException();
+            }
         } catch (DateTimeException e) {
             throw new WrongDateTimeFormatException();
         }
@@ -89,12 +96,52 @@ public class Event extends Task {
     }
 
     /**
+     * Sets the new event start date.
+     * 
+     * @param startDate The new event start date.
+     * @throws SigmaException If the start date is invalid.
+     */
+    public void setStartDate(String startDate) throws SigmaException {
+        if (!startDate.equals("")) {
+            //To check if entered date and time is in the correct format
+            try {
+                LocalDateTime.parse(startDate.substring(1), FORMATTER);
+                checkDateValidity(startDate, this.endDate);
+            } catch (DateTimeException e) {
+                throw new WrongDateTimeFormatException();
+            }
+    
+            this.startDate = startDate;
+        }
+    }
+
+    /**
      * Returns the ending date of the event object.
      *
      * @return The ending date of the event.
      */
     public String getEndDate() {
         return this.endDate;
+    }
+
+    /**
+     * Sets the new event end date.
+     * 
+     * @param endDate The new event end date.
+     * @throws SigmaException If the end date is invalid.
+     */
+    public void setEndDate(String endDate) throws SigmaException {
+        if (!endDate.equals("")) {
+            //To check if entered date and time is in the correct format
+            try {
+                LocalDateTime.parse(endDate.substring(1), FORMATTER);
+                checkDateValidity(this.startDate, endDate);
+            } catch (DateTimeException e) {
+                throw new WrongDateTimeFormatException();
+            }
+    
+            this.endDate = endDate;
+        }
     }
 
     @Override

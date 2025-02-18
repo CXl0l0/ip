@@ -1,9 +1,5 @@
-D//split//true//split// test123 1//split// 2025-12-03 0049
+D//split//false//split// elmao//split// 2012-12-11 0010
 D//split//false//split//  asd//split// 2025-12-03 0049
-E//split//false//split// event1//split// 2023-12-11 0011//split// 2024-01-04 1122
-D//split//false//split// abcd//split// 1234-01-20 0000
-E//split//true//split// event//split// 2020-02-20 0020//split// 2020-12-02 2000
-E//split//false//split// skibidi2//split// 2020-02-20 0020//split// 0101-01-20 1010
-E//split//true//split// 123//split// 2020-12-02 0000//split// 0100-06-25 0628
-T//split//false//split//askdh 
-E//split//false//split// b//split// 2020-02-20 0202//split// 2021-01-10 0110
+E//split//false//split// elmao123//split// 2023-12-11 0011//split// 2024-01-04 1122
+E//split//true//split// bruh//split// 2023-11-11 1111//split// 2023-11-11 1111
+E//split//false//split// bobjet//split// 2020-11-01 0012//split// 2020-11-01 0013
