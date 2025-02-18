@@ -41,3 +41,7 @@
 .find-label {
   -fx-background-color: derive(indigo, 1.5);
 }
+
+.edit-label {
+  -fx-background-color: cyan;
+}

@@ -1,6 +1,10 @@
 package sigma.command;
 
 //CHECKSTYLE.OFF: Regexp
+
+import sigma.exception.NoNewNameException;
+import sigma.exception.SigmaException;
+
 /**
  * A parser class that handles interpreting user inputs,
  * then outputting appropriate information back.
@@ -110,5 +114,55 @@ public class Parser {
         }
 
         return keyword.substring(1);
+    }
+
+    /**
+     * Parses the tokens for the command to edit tasks.
+     * 
+     * @param tokens The tokens of string to be interpreted.
+     * @param taskType The task type of the target task.
+     * @return The parsed information as an array of String.
+     */
+    public static String[] parseEdit(String[] tokens, String taskType) throws SigmaException {
+        assert taskType != null;
+        assert taskType != "";
+
+        switch (taskType) {
+        case "T":
+            return parseEditToDo(tokens);
+        case "D":
+            return parseEditDeadline(tokens);
+        case "E":
+            return parseEditEvent(tokens);
+        default:
+            assert taskType == "T" 
+                    || taskType == "D"
+                    || taskType == "E";
+        }
+
+        return null;
+    }
+
+    private static String[] parseEditToDo(String[] tokens) throws NoNewNameException {
+        String[] newInfos = new String[1];
+        String newTaskName = "";
+        if (tokens.length < 4 || !tokens[2].equals("/name")) {
+            throw new NoNewNameException();
+        }
+
+        for (int i = 3; i < tokens.length; i++) {
+            newTaskName += " " + tokens[i];
+        }
+
+        newInfos[0] = newTaskName.substring(1);
+        return newInfos;
+    }
+
+    private static String[] parseEditDeadline(String[] tokens) {
+        return null;
+    }
+
+    private static String[] parseEditEvent(String[] tokens) {
+        return null;   
     }
 }

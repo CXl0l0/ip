@@ -48,6 +48,11 @@ public class Task {
         return this.taskName;
     }
 
+    public void setTaskName(String taskName) {
+        assert taskName != "";
+        this.taskName = taskName;
+    }
+
     /**
      * Returns the field taskType.
      * 
