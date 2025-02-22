@@ -216,7 +216,7 @@ Here you can also see the index of every tasks!
 
 Step:
 
-1. Download the Sigma.jar file from here.
+1. Download the Sigma.jar file from [here](https://github.com/CXl0l0/ip/releases/tag/A-Release).
 2. Create a new folder called anywhere on your computer.
 3. Put the jar file into the folder.
 4. Launch Sigma!
