@@ -5,6 +5,7 @@ Wanna be more **PRODUCTIVE**? ~~Don't want to~~ **EAGER TO** do more works? Fret
 Your personal tasks tracker, made to fit all your needs of an ideal to-do list. This application is here to help you achieve your ultimate goal of being a true **SIGMA**!!!
 
 Introducing: Sigma
+
 ![A screenshot of Sigma's GUI](/docs/Ui.png)
 
 ## **_Sigma_** can help you to:
@@ -107,10 +108,10 @@ mark 1
 
 > [!NOTE]
 > Sigma also allows you to do the opposite, unmarking tasks!
-
-```
-unmark [Enter Task Index]
-```
+>
+> ```
+> unmark [Enter Task Index]
+> ```
 
 ### Edit tasks
 
@@ -173,7 +174,7 @@ Successfully edited task. The task has been changed to:
 [E][ ] week 7 (From: Mar 3 2025 00:00 -- To: Mar 10 2025 00:00)
 ```
 
-> ![NOTE]
+> [!NOTE]
 > You don't have to change all the attributes, can just choose to edit one of the attributes of the task. (e.g. Editing the deadline but not the task name)
 
 ### Find tasks
