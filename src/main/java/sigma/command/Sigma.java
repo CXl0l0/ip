@@ -33,6 +33,11 @@ public class Sigma {
         return ui.generateResponse(input);
     }
 
+    /**
+     * Returns the command type of the last executed command.
+     * 
+     * @return The command type.
+     */
     public String getCommandType() {
         return this.commandType;
     }

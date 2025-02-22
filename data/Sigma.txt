@@ -1,5 +1,0 @@
-D//split//false//split// elmao//split// 2012-12-11 0010
-D//split//false//split//  asd//split// 2025-12-03 0049
-E//split//false//split// elmao123//split// 2023-12-11 0011//split// 2024-01-04 1122
-E//split//true//split// bruh//split// 2023-11-11 1111//split// 2023-11-11 1111
-E//split//false//split// bobjet//split// 2020-11-01 0012//split// 2020-11-01 0013

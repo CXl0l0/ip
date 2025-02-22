@@ -10,7 +10,7 @@ public class NoNewNameException extends SigmaException {
      * Constructor for NoNewNameException.
      */
     public NoNewNameException() {
-        super("When's the new name yo? Edit the name by using " 
+        super("What's the new name yo? Edit the name by using " 
                 + "the '/name' keyword and entering the name after the keyword!");
     }
 }
