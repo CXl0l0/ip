@@ -37,7 +37,7 @@ public class Parser {
     public static String parseToDo(String[] tokens) {
         String taskName = "";
         for (int i = 1; i < tokens.length; i++) {
-            taskName += tokens[i] + " ";
+            taskName += " " + tokens[i];
         }
 
         return taskName;
