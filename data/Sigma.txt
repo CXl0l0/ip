@@ -1,7 +1,1 @@
-T//split//false//split// complete CS2103T tP
-D//split//true//split// test /byasjkhdjwhah//split// 2020-02-02 2020
-E//split//false//split// week 7//split// 2025-03-03 0000//split// 2025-03-10 0000
-D//split//false//split// CS2109S problem set 3//split// 2025-03-15 2359
-D//split//false//split// CS2105 Assignment 1//split// 2025-03-10 2359
-T//split//false//split//Revise for midterms 
-E//split//false//split// Club Interview//split// 2025-02-28 1500//split// 2025-02-28 1800
+T//split//false//split// dab
