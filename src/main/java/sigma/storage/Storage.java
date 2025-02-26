@@ -22,7 +22,7 @@ public class Storage {
     private static final String SPLIT = "//split//";
 
     public Storage() {
-        if (myFile.getParentFile() != null) {
+        if (myFile.getParentFile() != null && !myFile.getParentFile().exists()) {
             myFile.getParentFile().mkdirs();
         }
     }
